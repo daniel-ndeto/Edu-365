@@ -13,7 +13,22 @@ dotenv.config();
 // apParser.urlencoded({ limit: '10mb', extended: true }))
 
 app.use(express.json({ limit: "10mb" }));
-app.use(cors());
+app.use(cors(
+  {
+    origin: "*",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  }
+));
+
+mongoose.connect('mongodb+srv://daniel-ndeto:dan%4040122129@cluster0.fdlst.mongodb.net/edu-365?retryWrites=true&w=majority',)
+
+app.get("/", (req, res) => {
+  res.send("Welcome to the server");
+});
+
+app.use(express.urlencoded(
+));
 
 mongoose
   .connect(process.env.MONGO_URL, {
