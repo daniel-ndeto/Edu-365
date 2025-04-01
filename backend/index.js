@@ -40,7 +40,11 @@ app.get("/", (req, res) => {
 });
 
 // Use defined routes
-app.use("/", Routes);
+//app.use("/", Routes);
+
+const Routes = require("./routes/route.js");
+app.use("/api", Routes);
+
 
 // Start the server
 app.listen(PORT, () => {
