@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 });
 
 // Use defined routes
-app.use("/", routes);
+app.use("/", Routes);
 
 // Start the server
 app.listen(PORT, () => {
