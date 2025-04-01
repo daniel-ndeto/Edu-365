@@ -6,6 +6,7 @@ import Popup from '../../../components/Popup';
 import { underControl } from '../../../redux/userRelated/userSlice';
 import { getAllSclasses } from '../../../redux/sclassRelated/sclassHandle';
 import { CircularProgress } from '@mui/material';
+// eslint-disable-next-line no-unused-vars
 import  nodata  from '../../../assets/nodata.png';
 
 const AddStudent = ({ situation }) => {

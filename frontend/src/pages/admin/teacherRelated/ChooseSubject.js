@@ -30,6 +30,7 @@ const ChooseSubject = ({ situation }) => {
             setTeacherID(teacherID);
             dispatch(getTeacherFreeClassSubjects(classID));
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [situation]);
 
     if (loading) {

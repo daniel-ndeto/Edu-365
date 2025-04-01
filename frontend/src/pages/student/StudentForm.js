@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import styled from "styled-components";
 import {
@@ -22,7 +23,7 @@ import EventIcon from "@mui/icons-material/Event";
 
 const StudentForm = () => {
   const [formData, setFormData] = useState({
-    dateOfBirth: null, // Change to null to ensure it's a valid Date object
+    dateOfBirth:"", // null
     gender: "",
     email: "",
     phone: "",

@@ -20,6 +20,7 @@ import { BlueButton, GreenButton, ButtonContainer } from "../../../components/bu
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import SpeedDialTemplate from "../../../components/SpeedDialTemplate";
 import Popup from "../../../components/Popup";
+// eslint-disable-next-line no-unused-vars
 import nodata from "../../../assets/nodata.png";
 
 const ShowTeachers = () => {
@@ -38,6 +39,7 @@ const ShowTeachers = () => {
   }, [currentUser._id, dispatch]);
 
   const [showPopup, setShowPopup] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
 
   if (loading) {

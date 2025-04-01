@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom'
@@ -20,6 +21,7 @@ import SpeedDialTemplate from "../../../components/SpeedDialTemplate";
 import Popup from "../../../components/Popup";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PostAddIcon from '@mui/icons-material/PostAdd';
+// eslint-disable-next-line no-unused-vars
 import { alignProperty } from "@mui/material/styles/cssUtils";
 import { CenterFocusStrong } from "@mui/icons-material";
 const CustomButton = ({ onClick, children }) => {

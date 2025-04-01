@@ -42,12 +42,14 @@ const StudentExamMarks = ({ situation }) => {
             dispatch(getUserDetails(studentID, "Student"));
             setChosenSubName(subjectID);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [situation]);
 
     useEffect(() => {
         if (userDetails && userDetails.sclassName && situation === "Student") {
             dispatch(getSubjectList(userDetails.sclassName._id, "ClassSubjects"));
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, userDetails]);
 
     const changeHandler = (event) => {

@@ -12,6 +12,7 @@ import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import AddCardIcon from '@mui/icons-material/AddCard';
+// eslint-disable-next-line no-unused-vars
 import styled from 'styled-components';
 import SpeedDialTemplate from '../../../components/SpeedDialTemplate';
 import Popup from '../../../components/Popup';
@@ -34,6 +35,7 @@ const ShowClasses = () => {
   }
 
   const [showPopup, setShowPopup] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
 
   const deleteHandler = (deleteID, address) => {

@@ -17,6 +17,7 @@ const SeeNotice = () => {
         else {
             dispatch(getAllNotices(currentUser.school._id, "Notice"));
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
     if (error) {

@@ -18,6 +18,7 @@ import addnotice from "../../assets/addnotice.jpg";
 const TeacherHomePage = () => {
   const dispatch = useDispatch();
   const [hasData, setHasData] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const addData = () => {
     setHasData(true);
   };

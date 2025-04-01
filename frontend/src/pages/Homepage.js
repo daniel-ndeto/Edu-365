@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { Link } from "react-router-dom";
+
 import { Container, Grid, Box, Button } from "@mui/material";
 import styled from "styled-components";
 import Students from "../assets/homepage.png";

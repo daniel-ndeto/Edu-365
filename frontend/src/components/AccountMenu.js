@@ -9,6 +9,8 @@ import {
   IconButton,
   Tooltip,
 } from "@mui/material";
+
+// eslint-disable-next-line no-unused-vars
 import { Settings, Logout } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";

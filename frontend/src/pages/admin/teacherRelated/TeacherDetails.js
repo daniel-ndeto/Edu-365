@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { getTeacherDetails } from '../../../redux/teacherRelated/teacherHandle';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+// eslint-disable-next-line no-unused-vars
 import { Button, Container, Typography, Card, CardContent } from '@mui/material';
 import styled from 'styled-components';
 

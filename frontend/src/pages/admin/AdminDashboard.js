@@ -1,9 +1,12 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import {
   CssBaseline,
   Box,
   Toolbar,
   List,
+  
+  // eslint-disable-next-line no-unused-vars
   Button,
   Typography,
   Divider,
@@ -45,10 +48,11 @@ import AccountMenu from "../../components/AccountMenu";
 
 const AdminDashboard = () => {
   const [open, setOpen] = useState(false);
-  const [hasData, setHasData] = useState(false);
+  const [, setHasData] = useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
+  // eslint-disable-next-line no-unused-vars
   const addData = () => {
     setHasData(true);
   };

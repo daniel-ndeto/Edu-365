@@ -40,6 +40,7 @@ const ShowStudents = () => {
     }
 
     const [showPopup, setShowPopup] = React.useState(false);
+    // eslint-disable-next-line no-unused-vars
     const [message, setMessage] = React.useState("");
 
     const deleteHandler = (deleteID, address) => {
