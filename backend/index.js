@@ -15,7 +15,7 @@ dotenv.config();
 app.use(express.json({ limit: "10mb" }));
 app.use(cors(
   {
-    origin: "*",
+    origin: "https://edu-365-front.vercel.app/",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   }
