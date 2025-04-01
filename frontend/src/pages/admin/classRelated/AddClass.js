@@ -1,3 +1,4 @@
+// Import necessary modules and components
 import React, { useEffect, useState } from "react";
 import { Box, Button, CircularProgress, Stack, TextField } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +11,7 @@ import Popup from "../../../components/Popup";
 import Classroom from "../../../assets/classroom.png";
 import styled from "styled-components";
 
+// Define the AddClass component
 const AddClass = () => {
     const [sclassName, setSclassName] = useState("");
 
@@ -26,12 +28,14 @@ const AddClass = () => {
     const [message, setMessage] = useState("");
     const [showPopup, setShowPopup] = useState(false);
 
+    // Prepare the fields to be sent to the server
     const fields = {
         sclassName,
         adminID,
     };
 
     const submitHandler = (event) => {
+        // Prevent the default form submission behavior
         event.preventDefault()
         setLoader(true)
         dispatch(addStuff(fields, address))
@@ -39,6 +43,7 @@ const AddClass = () => {
 
     useEffect(() => {
         if (status === 'added' && tempDetails) {
+            // Navigate to the class details page if the class was added successfully
             navigate("/Admin/classes/class/" + tempDetails._id)
             dispatch(underControl())
             setLoader(false)
@@ -54,6 +59,7 @@ const AddClass = () => {
             setLoader(false)
         }
     }, [status, navigate, error, response, dispatch, tempDetails]);
+    // Render the component
     return (
         <>
             <StyledContainer>
@@ -68,6 +74,7 @@ const AddClass = () => {
                             style={{ width: '80%' }}
                         />
                     </Stack>
+                    {/** Add class form */}
                     <form onSubmit={submitHandler}>
                         <Stack spacing={3}>
                             <TextField
@@ -102,6 +109,7 @@ const AddClass = () => {
     )
 }
 
+// Export the AddClass component
 export default AddClass
 
 const StyledContainer = styled(Box)`

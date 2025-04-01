@@ -1,3 +1,4 @@
+// Import necessary modules and components
 import React, { useState } from "react";
 import { Container, Grid, Paper, Box, Typography } from "@mui/material";
 import SeeNotice from "../../components/SeeNotice";
@@ -15,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import addnotice from "../../assets/addnotice.jpg";
 
+// Define the TeacherHomePage component
 const TeacherHomePage = () => {
   const dispatch = useDispatch();
   const [hasData, setHasData] = useState(false);
@@ -23,24 +25,29 @@ const TeacherHomePage = () => {
     setHasData(true);
   };
 
+  // Select data from the Redux store
   const { currentUser } = useSelector((state) => state.user);
   const { subjectDetails, sclassStudents } = useSelector(
     (state) => state.sclass
   );
 
+  // Extract class ID and subject ID from the current user's data
   const classID = currentUser.teachSclass?._id;
   const subjectID = currentUser.teachSubject?._id;
 
+  // Fetch subject details and class students on component mount and when dependencies change
   useEffect(() => {
     dispatch(getSubjectDetails(subjectID, "Subject"));
     dispatch(getClassStudents(classID));
   }, [dispatch, subjectID, classID]);
 
+  // Calculate the number of students and sessions
   const numberOfStudents = sclassStudents && sclassStudents.length;
   const numberOfSessions = subjectDetails && subjectDetails.sessions;
 
   return (
     <>
+      {/* Main container */}
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={3} lg={3}>
@@ -72,6 +79,7 @@ const TeacherHomePage = () => {
             </StyledPaper>
           </Grid>
           <Grid item xs={12}>
+            {/* Notice board */}
             <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
               {hasData ? (
                 <SeeNotice />
@@ -95,6 +103,7 @@ const TeacherHomePage = () => {
   );
 };
 
+// Styled components for styling
 const StyledPaper = styled(Paper)`
   padding: 16px;
   display: flex;
@@ -114,4 +123,5 @@ const Data = styled(CountUp)`
   color: green;
 `;
 
+// Export the TeacherHomePage component
 export default TeacherHomePage;

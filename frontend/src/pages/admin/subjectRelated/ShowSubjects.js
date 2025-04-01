@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -25,34 +25,44 @@ const ShowSubjects = () => {
   const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
+    // Fetch all subjects when the component mounts
     dispatch(getSubjectList(currentUser._id, "AllSubjects"));
   }, [currentUser._id, dispatch]);
 
+  // Log any errors to the console
   if (error) {
     console.log(error);
   }
 
+  // State for managing popup messages
   const [showPopup, setShowPopup] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
 
+  // Function to handle subject deletion
   const deleteHandler = (deleteID, address) => {
     console.log(deleteID);
     console.log(address);
 
+    // Dispatch action to delete a subject
     dispatch(deleteUser(deleteID, address))
         .then(() => {
+            // After deletion, fetch the updated list of subjects
             dispatch(getSubjectList(currentUser._id, "AllSubjects"));
         })
   };
 
+  // Define the columns for the subjects table
   const subjectColumns = [
     { id: "subName", label: "Sub Name", minWidth: 170 },
     { id: "sessions", label: "Sessions", minWidth: 170 },
     { id: "sclassName", label: "Class", minWidth: 170 },
   ];
 
+  // Map the subjects data to the table rows format
   const subjectRows = subjectsList.map((subject) => {
     return {
+      // Extract relevant data from each subject
       subName: subject.subName,
       sessions: subject.sessions,
       sclassName: subject.sclassName.sclassName,
@@ -60,7 +70,8 @@ const ShowSubjects = () => {
       id: subject._id,
     };
   });
-
+  
+  // Define a component for the button in each row of the table
   const SubjectsButtonHaver = ({ row }) => {
     return (
       <>
@@ -68,6 +79,7 @@ const ShowSubjects = () => {
           <DeleteIcon color="error" />
         </IconButton>
         <BlueButton
+          // Button to view the details of a subject
           variant="contained"
           onClick={() =>
             navigate(`/Admin/subjects/subject/${row.sclassID}/${row.id}`)
@@ -79,6 +91,7 @@ const ShowSubjects = () => {
     );
   };
 
+  // Define the actions for the speed dial
   const actions = [
     {
       icon: <PostAddIcon color="primary" />,
@@ -92,20 +105,25 @@ const ShowSubjects = () => {
     },
   ];
 
+  // Render the component
   return (
     <>
+      {/* Conditional rendering based on loading state */}
       {loading ? (
         <div>Loading...</div>
       ) : (
         <>
+          {/* Conditional rendering based on whether there are subjects */}
           {response ? (
+            // Box to center the message
             <Box
               sx={{
                 display: "flex",
                 justifyContent: "center",
                 marginTop: "16px",
               }}
-            >
+            > 
+            {/* Button to add new subjects */}
               <ButtonContainer>
                 <GreenButton
                   variant="contained"
@@ -116,8 +134,10 @@ const ShowSubjects = () => {
               </ButtonContainer>
             </Box>
           ) : (
+            // Table to show the subjects
             <Paper sx={{ width: "100%", overflow: "hidden" }}>
               {Array.isArray(subjectsList) && subjectsList.length > 0 && (
+                // TableTemplate component to display the subjects
                 <TableTemplate
                   buttonHaver={SubjectsButtonHaver}
                   columns={subjectColumns}
@@ -129,6 +149,7 @@ const ShowSubjects = () => {
           )}
         </>
       )}
+      {/* Popup component for displaying messages */}
       <Popup
         message={message}
         setShowPopup={setShowPopup}

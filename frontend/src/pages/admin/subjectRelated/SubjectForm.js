@@ -1,3 +1,4 @@
+// Import necessary modules and components
 import React, { useEffect, useState } from "react";
 import { Button, TextField, Grid, Box, Typography, CircularProgress } from "@mui/material";
 import { useNavigate, useParams } from 'react-router-dom';
@@ -6,6 +7,7 @@ import { addStuff } from '../../../redux/userRelated/userHandle';
 import { underControl } from '../../../redux/userRelated/userSlice';
 import Popup from '../../../components/Popup';
 
+// Define the SubjectForm component
 const SubjectForm = () => {
     const [subjects, setSubjects] = useState([{ subName: "", subCode: "", sessions: "" }]);
 
@@ -24,6 +26,7 @@ const SubjectForm = () => {
     const [message, setMessage] = useState("");
     const [loader, setLoader] = useState(false)
 
+    // Handle changes in subject name, code, and sessions
     const handleSubjectNameChange = (index) => (event) => {
         const newSubjects = [...subjects];
         newSubjects[index].subName = event.target.value;
@@ -42,10 +45,12 @@ const SubjectForm = () => {
         setSubjects(newSubjects);
     };
 
+    // Add a new subject field
     const handleAddSubject = () => {
         setSubjects([...subjects, { subName: "", subCode: "" }]);
     };
 
+    // Remove a subject field
     const handleRemoveSubject = (index) => () => {
         const newSubjects = [...subjects];
         newSubjects.splice(index, 1);
@@ -62,6 +67,7 @@ const SubjectForm = () => {
         adminID,
     };
 
+    // Handle form submission
     const submitHandler = (event) => {
         event.preventDefault();
         setLoader(true)
@@ -69,6 +75,7 @@ const SubjectForm = () => {
     };
 
     useEffect(() => {
+        // Handle different statuses after submitting the form
         if (status === 'added') {
             navigate("/Admin/subjects");
             dispatch(underControl())
@@ -86,11 +93,13 @@ const SubjectForm = () => {
         }
     }, [status, navigate, error, response, dispatch]);
 
+    // Render the component
     return (
         <form onSubmit={submitHandler}>
             <Box mb={2}>
                 <Typography variant="h6" >Add Subjects</Typography>
             </Box>
+            {/* Map through each subject field */}
             <Grid container spacing={2}>
                 {subjects.map((subject, index) => (
                     <React.Fragment key={index}>
@@ -101,6 +110,7 @@ const SubjectForm = () => {
                                 variant="outlined"
                                 value={subject.subName}
                                 onChange={handleSubjectNameChange(index)}
+                                // Apply styles to the input field
                                 sx={styles.inputField}
                                 required
                             />
@@ -112,6 +122,7 @@ const SubjectForm = () => {
                                 variant="outlined"
                                 value={subject.subCode}
                                 onChange={handleSubjectCodeChange(index)}
+                                // Apply styles to the input field
                                 sx={styles.inputField}
                                 required
                             />
@@ -125,10 +136,12 @@ const SubjectForm = () => {
                                 inputProps={{ min: 0 }}
                                 value={subject.sessions}
                                 onChange={handleSessionsChange(index)}
+                                // Apply styles to the input field
                                 sx={styles.inputField}
                                 required
                             />
                         </Grid>
+                        {/* Add or remove subject buttons */}
                         <Grid item xs={6}>
                             <Box display="flex" alignItems="flex-end">
                                 {index === 0 ? (
@@ -152,6 +165,7 @@ const SubjectForm = () => {
                         </Grid>
                     </React.Fragment>
                 ))}
+                {/* Submit button */}
                 <Grid item xs={12}>
                     <Box display="flex" justifyContent="flex-end">
                         <Button variant="contained" color="primary" type="submit" disabled={loader}>
@@ -163,12 +177,14 @@ const SubjectForm = () => {
                         </Button>
                     </Box>
                 </Grid>
+                {/* Popup component for displaying messages */}
                 <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
             </Grid>
         </form>
     );
 }
 
+// Export the component
 export default SubjectForm
 
 const styles = {

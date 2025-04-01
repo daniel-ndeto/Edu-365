@@ -1,3 +1,4 @@
+// Import necessary modules and components
 import { useEffect, useState } from 'react';
 import { IconButton, Box, Menu, MenuItem, ListItemIcon, Tooltip } from '@mui/material';
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -17,6 +18,7 @@ import styled from 'styled-components';
 import SpeedDialTemplate from '../../../components/SpeedDialTemplate';
 import Popup from '../../../components/Popup';
 
+// Define the ShowClasses component
 const ShowClasses = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
@@ -26,6 +28,7 @@ const ShowClasses = () => {
 
   const adminID = currentUser._id
 
+  // Fetch all classes on component mount
   useEffect(() => {
     dispatch(getAllSclasses(adminID, "Sclass"));
   }, [adminID, dispatch]);
@@ -38,6 +41,7 @@ const ShowClasses = () => {
   // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
 
+  // Handle deletion of a class
   const deleteHandler = (deleteID, address) => {
     console.log(deleteID);
     console.log(address);
@@ -47,12 +51,14 @@ const ShowClasses = () => {
       })
   }
 
+  // Define columns for the classes table
   const sclassColumns = [
     { id: 'name', label: 'Class Name', minWidth: 170 },
   ]
 
+  // Map class data to table rows
   const sclassRows = sclassesList && sclassesList.length > 0 && sclassesList.map((sclass) => {
-    return {
+      return {
       name: sclass.sclassName,
       id: sclass._id,
     };
@@ -63,6 +69,7 @@ const ShowClasses = () => {
       { icon: <PostAddIcon />, name: 'Add Subjects', action: () => navigate("/Admin/addsubject/" + row.id) },
       { icon: <PersonAddAlt1Icon />, name: 'Add Student', action: () => navigate("/Admin/class/addstudents/" + row.id) },
     ];
+    // Render buttons for each row in the classes table
     return (
       <ButtonContainer>
         <IconButton onClick={() => deleteHandler(row.id, "Sclass")} color="secondary">
@@ -77,12 +84,14 @@ const ShowClasses = () => {
     );
   };
 
+  // Define the ActionMenu component for additional actions
   const ActionMenu = ({ actions }) => {
     const [anchorEl, setAnchorEl] = useState(null);
 
     const open = Boolean(anchorEl);
 
     const handleClick = (event) => {
+      // Handle click on the action menu button
       setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
@@ -131,6 +140,7 @@ const ShowClasses = () => {
     );
   }
 
+  // Define actions for the classes section speed dial
   const actions = [
     {
       icon: <AddCardIcon color="primary" />, name: 'Add New Class',
@@ -142,6 +152,7 @@ const ShowClasses = () => {
     },
   ];
 
+  // Render the component
   return (
     <>
       {loading ?
@@ -171,6 +182,7 @@ const ShowClasses = () => {
   );
 };
 
+// Export the ShowClasses component
 export default ShowClasses;
 
 const styles = {

@@ -23,7 +23,7 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Popup from '../../../components/Popup';
-
+// Define the ShowStudents component
 const ShowStudents = () => {
 
     const navigate = useNavigate()
@@ -31,15 +31,19 @@ const ShowStudents = () => {
     const { studentsList, loading, error, response } = useSelector((state) => state.student);
     const { currentUser } = useSelector(state => state.user)
 
+    // Fetch all students when the component mounts
     useEffect(() => {
         dispatch(getAllStudents(currentUser._id));
     }, [currentUser._id, dispatch]);
 
+    // Log any errors to the console
     if (error) {
         console.log(error);
     }
 
     const [showPopup, setShowPopup] = React.useState(false);
+
+    // State for managing popup messages
     // eslint-disable-next-line no-unused-vars
     const [message, setMessage] = React.useState("");
 
@@ -52,12 +56,14 @@ const ShowStudents = () => {
             })
     }
 
+    // Define the columns for the students table
     const studentColumns = [
         { id: 'name', label: 'Name', minWidth: 170 },
         { id: 'rollNum', label: 'Roll Number', minWidth: 100 },
         { id: 'sclassName', label: 'Class', minWidth: 170 },
     ]
 
+    // Map the students data to the table rows format
     const studentRows = studentsList && studentsList.length > 0 && studentsList.map((student) => {
         return {
             name: student.name,
@@ -67,15 +73,19 @@ const ShowStudents = () => {
         };
     })
 
+    // Define a component for the button in each row of the table
     const StudentButtonHaver = ({ row }) => {
+        // Define the options for the dropdown menu
         const options = ['Take Attendance', 'Provide Marks'];
 
+        // State for managing the dropdown menu
         const [open, setOpen] = React.useState(false);
         const anchorRef = React.useRef(null);
         const [selectedIndex, setSelectedIndex] = React.useState(0);
 
         const handleClick = () => {
             console.info(`You clicked ${options[selectedIndex]}`);
+            // Handle the selected option
             if (selectedIndex === 0) {
                 handleAttendance();
             } else if (selectedIndex === 1) {
@@ -83,10 +93,12 @@ const ShowStudents = () => {
             }
         };
 
+        // Navigate to the attendance page
         const handleAttendance = () => {
             navigate("/Admin/students/student/attendance/" + row.id)
         }
         const handleMarks = () => {
+            // Navigate to the marks page
             navigate("/Admin/students/student/marks/" + row.id)
         };
 
@@ -107,6 +119,7 @@ const ShowStudents = () => {
             setOpen(false);
         };
         return (
+            // Render the buttons for each row
             <>
                 <IconButton onClick={() => deleteHandler(row.id, "Student")}>
                     <PersonRemoveIcon color="error" />
@@ -171,6 +184,7 @@ const ShowStudents = () => {
         );
     };
 
+    // Define the actions for the speed dial
     const actions = [
         {
             icon: <PersonAddAlt1Icon color="primary" />, name: 'Add New Student',
@@ -182,6 +196,7 @@ const ShowStudents = () => {
         },
     ];
 
+    // Render the component
     return (
         <>
             {loading ?
@@ -189,6 +204,7 @@ const ShowStudents = () => {
                 :
                 <>
                     {response ?
+                        // Box to center the message
                         <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
                             <ButtonContainer>
                               <GreenButton variant="contained" onClick={() => navigate("/Admin/addstudents")}>
@@ -196,6 +212,7 @@ const ShowStudents = () => {
                               </GreenButton>
                             </ButtonContainer>
                         </Box>
+                        // Table to show the students
                         :
                         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                             {Array.isArray(studentsList) && studentsList.length > 0 &&
@@ -210,5 +227,5 @@ const ShowStudents = () => {
         </>
     );
 };
-
+// Export the component
 export default ShowStudents;

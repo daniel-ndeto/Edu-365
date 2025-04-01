@@ -1,3 +1,4 @@
+// Import necessary modules and components
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,6 +28,7 @@ import Popup from "../components/Popup";
 
 const defaultTheme = createTheme();
 
+// Define the LoginPage component
 const LoginPage = ({ role }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,6 +37,7 @@ const LoginPage = ({ role }) => {
     (state) => state.user
   );
 
+  // State variables for managing UI elements and form data
   const [toggle, setToggle] = useState(false);
   const [guestLoader, setGuestLoader] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -46,10 +49,12 @@ const LoginPage = ({ role }) => {
   const [rollNumberError, setRollNumberError] = useState(false);
   const [studentNameError, setStudentNameError] = useState(false);
 
+  // Function to handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
 
     if (role === "Student") {
+      // Extract form values for student login
       const rollNum = event.target.rollNumber.value;
       const studentName = event.target.studentName.value;
       const password = event.target.password.value;
@@ -61,10 +66,12 @@ const LoginPage = ({ role }) => {
         return;
       }
       const fields = { rollNum, studentName, password };
+      // Dispatch login action
       setLoader(true);
       dispatch(loginUser(fields, role));
     } else {
       const email = event.target.email.value;
+      // Extract form values for admin/teacher login
       const password = event.target.password.value;
 
       if (!email || !password) {
@@ -75,11 +82,13 @@ const LoginPage = ({ role }) => {
 
       const fields = { email, password };
       setLoader(true);
+      // Dispatch login action
       dispatch(loginUser(fields, role));
     }
   };
 
   const handleInputChange = (event) => {
+    // Function to handle input changes and clear errors
     const { name } = event.target;
     if (name === "email") setEmailError(false);
     if (name === "password") setPasswordError(false);
@@ -88,6 +97,7 @@ const LoginPage = ({ role }) => {
   };
 
 
+  // Effect to handle login status and navigation
   useEffect(() => {
     if (status === "success" || currentUser !== null) {
       if (currentRole === "Admin") {
@@ -109,6 +119,7 @@ const LoginPage = ({ role }) => {
     }
   }, [status, currentRole, navigate, error, response, currentUser]);
 
+  // Render the component
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -129,6 +140,7 @@ const LoginPage = ({ role }) => {
             <Typography variant="h7">
               Welcome back! Please enter your details
             </Typography>
+            {/* Login form */}
             <Box
               component="form"
               noValidate
@@ -136,6 +148,7 @@ const LoginPage = ({ role }) => {
               sx={{ mt: 2 }}
             >
               {role === "Student" ? (
+                // Student login fields
                 <>
                   <TextField
                     margin="normal"
@@ -166,6 +179,7 @@ const LoginPage = ({ role }) => {
                   />
                 </>
               ) : (
+                // Admin/Teacher login fields
                 <TextField
                   margin="normal"
                   required
@@ -180,6 +194,7 @@ const LoginPage = ({ role }) => {
                   onChange={handleInputChange}
                 />
               )}
+              {/* Password field */}
               <TextField
                 margin="normal"
                 required
@@ -202,6 +217,7 @@ const LoginPage = ({ role }) => {
                   ),
                 }}
               />
+              {/* Remember me and forgot password */}
               <Grid
                 container
                 sx={{ display: "flex", justifyContent: "space-between" }}
@@ -213,6 +229,7 @@ const LoginPage = ({ role }) => {
                 <StyledLink href="#">Forgot password?</StyledLink>
               </Grid>
               <DarkBlueButton
+                // Login button
                 type="submit"
                 fullWidth
                 variant="contained"
@@ -224,6 +241,7 @@ const LoginPage = ({ role }) => {
                   "Login"
                 )}
               </DarkBlueButton>
+              {/* Sign up link for admin */}
               {role === "Admin" && (
                 <Grid container>
                   <Grid>Don't have an account?</Grid>
@@ -235,6 +253,7 @@ const LoginPage = ({ role }) => {
             </Box>
           </Box>
         </Grid>
+        {/* Background image */}
         <Grid
           item
           xs={false}
@@ -252,6 +271,7 @@ const LoginPage = ({ role }) => {
           }}
         />
       </Grid>
+      {/* Backdrop for loader */}
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={guestLoader}
@@ -259,6 +279,7 @@ const LoginPage = ({ role }) => {
         <CircularProgress color="primary" />
         Please Wait
       </Backdrop>
+      {/* Popup component */}
       <Popup
         message={message}
         setShowPopup={setShowPopup}
@@ -270,6 +291,7 @@ const LoginPage = ({ role }) => {
 
 export default LoginPage;
 
+// Styled component for the link
 const StyledLink = styled(Link)`
   margin-top: 9px;
   text-decoration: none;

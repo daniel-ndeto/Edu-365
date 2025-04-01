@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+// Import necessary components from Material UI
 import { Box, CircularProgress, Stack, TextField, Typography } from '@mui/material';
 import Popup from '../../components/Popup';
 import { BlueButton } from '../../components/buttonStyles';
@@ -6,28 +7,35 @@ import { addStuff } from '../../redux/userRelated/userHandle';
 import { useDispatch, useSelector } from 'react-redux';
 
 const StudentComplain = () => {
+    // State variables to manage the complaint, date, loader, message, and popup visibility
     const [complaint, setComplaint] = useState("");
     const [date, setDate] = useState("");
 
+    // Redux dispatch hook
     const dispatch = useDispatch()
 
+    // Select data from the Redux store
     const { status, currentUser, error } = useSelector(state => state.user);
 
+    // Extract user ID and school ID from the current user
     const user = currentUser._id
     const school = currentUser.school._id
+    // Define the address for the API call
     const address = "Complain"
 
+    // State variables for loader, message, and popup
     const [loader, setLoader] = useState(false)
     const [message, setMessage] = useState("");
     const [showPopup, setShowPopup] = useState(false);
 
+    // Fields to be sent to the API
     const fields = {
         user,
         date,
         complaint,
         school,
     };
-
+    // Function to handle form submission
     const submitHandler = (event) => {
         event.preventDefault()
         setLoader(true)
@@ -35,6 +43,7 @@ const StudentComplain = () => {
     };
 
     useEffect(() => {
+        // Check the status from the Redux store and update the UI accordingly
         if (status === "added") {
             setLoader(false)
             setShowPopup(true)
@@ -48,6 +57,7 @@ const StudentComplain = () => {
     }, [status, error])
 
     return (
+        // Main container for the complaint form
         <>
             <Box
                 sx={{
@@ -65,11 +75,14 @@ const StudentComplain = () => {
                         width: '100%'
                     }}
                 >
+                    {/* Form container */}
                     <div>
                         <Stack spacing={1} sx={{ mb: 3 }}>
                             <Typography variant="h4">Complain</Typography>
                         </Stack>
+                        {/* Form */}
                         <form onSubmit={submitHandler}>
+                            {/* Form fields */}
                             <Stack spacing={3}>
                                 <TextField
                                     fullWidth
@@ -94,6 +107,7 @@ const StudentComplain = () => {
                                     maxRows={4}
                                 />
                             </Stack>
+                            {/* Submit button */}
                             <BlueButton
                                 fullWidth
                                 size="large"
@@ -108,6 +122,7 @@ const StudentComplain = () => {
                     </div>
                 </Box>
             </Box>
+            {/* Popup component to display messages */}
             <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
         </>
     );

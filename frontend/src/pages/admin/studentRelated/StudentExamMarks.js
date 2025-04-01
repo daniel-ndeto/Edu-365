@@ -1,3 +1,4 @@
+// Import necessary modules and components
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -14,6 +15,7 @@ import {
     TextField, CircularProgress, FormControl
 } from '@mui/material';
 
+// Define the StudentExamMarks component
 const StudentExamMarks = ({ situation }) => {
     const dispatch = useDispatch();
     const { currentUser, userDetails, loading } = useSelector((state) => state.user);
@@ -30,6 +32,7 @@ const StudentExamMarks = ({ situation }) => {
     const [message, setMessage] = useState("");
     const [loader, setLoader] = useState(false)
 
+    // Fetch student details and subject list based on the situation
     useEffect(() => {
         if (situation === "Student") {
             setStudentID(params.id);
@@ -45,6 +48,7 @@ const StudentExamMarks = ({ situation }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [situation]);
 
+    // Fetch subject list when user details are available
     useEffect(() => {
         if (userDetails && userDetails.sclassName && situation === "Student") {
             dispatch(getSubjectList(userDetails.sclassName._id, "ClassSubjects"));
@@ -52,6 +56,7 @@ const StudentExamMarks = ({ situation }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, userDetails]);
 
+    // Handle subject selection change
     const changeHandler = (event) => {
         const selectedSubject = subjectsList.find(
             (subject) => subject.subName === event.target.value
@@ -59,11 +64,13 @@ const StudentExamMarks = ({ situation }) => {
         setSubjectName(selectedSubject.subName);
         setChosenSubName(selectedSubject._id);
     }
-
+    
+    // Define the fields to be submitted
     const fields = { subName: chosenSubName, marksObtained }
 
     const submitHandler = (event) => {
         event.preventDefault()
+        // Dispatch action to update student exam marks
         setLoader(true)
         dispatch(updateStudentFields(studentID, fields, "UpdateExamResult"))
     }
@@ -87,6 +94,7 @@ const StudentExamMarks = ({ situation }) => {
     }, [response, statestatus, error])
 
     return (
+        // Conditional rendering based on loading state
         <>
             {loading
                 ?
@@ -94,6 +102,7 @@ const StudentExamMarks = ({ situation }) => {
                     <div>Loading...</div>
                 </>
                 :
+                // Main container for the exam marks form
                 <>
                     <Box
                         sx={{
@@ -111,6 +120,7 @@ const StudentExamMarks = ({ situation }) => {
                                 width: '100%'
                             }}
                         >
+                            {/* Display student and subject name */}
                             <Stack spacing={1} sx={{ mb: 3 }}>
                                 <Typography variant="h4">
                                     Student Name: {userDetails.name}
@@ -121,8 +131,10 @@ const StudentExamMarks = ({ situation }) => {
                                     </Typography>
                                 }
                             </Stack>
+                            {/* Exam marks form */}
                             <form onSubmit={submitHandler}>
                                 <Stack spacing={3}>
+                                    {/* Subject selection dropdown (only shown when situation is "Student") */}
                                     {
                                         situation === "Student" &&
                                         <FormControl fullWidth>
@@ -150,6 +162,7 @@ const StudentExamMarks = ({ situation }) => {
                                             </Select>
                                         </FormControl>
                                     }
+                                    {/* Marks input field */}
                                     <FormControl>
                                         <TextField type="number" label='Enter marks'
                                             value={marksObtained} required
@@ -160,6 +173,7 @@ const StudentExamMarks = ({ situation }) => {
                                         />
                                     </FormControl>
                                 </Stack>
+                                {/* Submit button with loading indicator */}
                                 <BlueButton
                                     fullWidth
                                     size="large"
@@ -172,6 +186,7 @@ const StudentExamMarks = ({ situation }) => {
                                 </BlueButton>
                             </form>
                         </Box>
+                        {/* Popup component for displaying messages */}
                     </Box>
                     <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
                 </>

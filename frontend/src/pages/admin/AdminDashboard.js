@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import {
   CssBaseline,
@@ -46,6 +47,7 @@ import ClassDetails from "./classRelated/ClassDetails";
 import ShowClasses from "./classRelated/ShowClasses";
 import AccountMenu from "../../components/AccountMenu";
 
+// Define the AdminDashboard component
 const AdminDashboard = () => {
   const [open, setOpen] = useState(false);
   const [, setHasData] = useState(false);
@@ -60,10 +62,12 @@ const AdminDashboard = () => {
   const removeData = () => {
     setHasData(false);
   };
+  // Render the component
   return (
     <>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
+        {/* App bar */}
         <AppBar
           open={open}
           position="absolute"
@@ -94,6 +98,7 @@ const AdminDashboard = () => {
             <AccountMenu />
           </Toolbar>
         </AppBar>
+        {/* Drawer */}
         <Drawer
           variant="permanent"
           open={open}
@@ -109,6 +114,7 @@ const AdminDashboard = () => {
             <SideBar />
           </List>
         </Drawer>
+        {/* Main content */}
         <Box component="main" sx={styles.boxStyled}>
           <Toolbar />
           <Routes>
@@ -119,7 +125,7 @@ const AdminDashboard = () => {
             <Route path="/Admin/complains" element={<SeeComplains />} />
 
             {/* Notice */}
-            <Route path="/Admin/addnotice" element={<AddNotice />} />
+            <Route path="/Admin/addnotice" element={<AddNotice />} /> {/* Route for adding a notice */}
             <Route path="/Admin/notices" element={<ShowNotices />} />
 
             {/* Subject */}
@@ -129,7 +135,7 @@ const AdminDashboard = () => {
               element={<ViewSubject />}
             />
             <Route
-              path="/Admin/subjects/chooseclass"
+              path="/Admin/subjects/chooseclass" // Route for choosing a class for a subject
               element={<ChooseClass situation="Subject" />}
             />
 
@@ -137,11 +143,11 @@ const AdminDashboard = () => {
             <Route
               path="/Admin/class/subject/:classID/:subjectID"
               element={<ViewSubject />}
-            />
+            /> {/* Route for viewing a subject */}
 
             <Route
               path="/Admin/subject/student/attendance/:studentID/:subjectID"
-              element={<StudentAttendance situation="Subject" />}
+              element={<StudentAttendance situation="Subject" />} // Route for student attendance for a subject
             />
             <Route
               path="/Admin/subject/student/marks/:studentID/:subjectID"
@@ -149,7 +155,7 @@ const AdminDashboard = () => {
             />
 
             {/* Class */}
-            <Route path="/Admin/addclass" element={<AddClass />} />
+            <Route path="/Admin/addclass" element={<AddClass />} /> {/* Route for adding a class */}
             <Route path="/Admin/classes" element={<ShowClasses />} />
             <Route path="/Admin/classes/class/:id" element={<ClassDetails />} />
             <Route
@@ -158,7 +164,7 @@ const AdminDashboard = () => {
             />
 
             {/* Student */}
-            <Route
+            <Route // Route for adding a student
               path="/Admin/addstudents"
               element={<AddStudent situation="Student" />}
             />
@@ -166,7 +172,7 @@ const AdminDashboard = () => {
             <Route
               path="/Admin/students/student/:id"
               element={<ViewStudent />}
-            />
+            /> {/* Route for viewing a student */}
             <Route
               path="/Admin/students/student/attendance/:id"
               element={<StudentAttendance situation="Student" />}
@@ -177,27 +183,27 @@ const AdminDashboard = () => {
             />
 
             {/* Teacher */}
-            <Route path="/Admin/teachers" element={<ShowTeachers />} />
+            <Route path="/Admin/teachers" element={<ShowTeachers />} /> {/* Route for showing teachers */}
             <Route
               path="/Admin/teachers/teacher/:id"
               element={<TeacherDetails />}
-            />
+            /> {/* Route for teacher details */}
             <Route
               path="/Admin/teachers/chooseclass"
               element={<ChooseClass situation="Teacher" />}
-            />
+            /> {/* Route for choosing a class for a teacher */}
             <Route
               path="/Admin/teachers/choosesubject/:id"
               element={<ChooseSubject situation="Norm" />}
-            />
+            /> {/* Route for choosing a subject for a teacher */}
             <Route
               path="/Admin/teachers/choosesubject/:classID/:teacherID"
               element={<ChooseSubject situation="Teacher" />}
-            />
+            /> {/* Route for choosing a subject for a teacher */}
             <Route
               path="/Admin/teachers/addteacher/:id"
               element={<AddTeacher />}
-            />
+            /> {/* Route for adding a teacher */}
             <Route path="/logout" element={<Logout />} />
           </Routes>
         </Box>
@@ -206,6 +212,7 @@ const AdminDashboard = () => {
   );
 };
 
+// Export the component
 export default AdminDashboard;
 
 const styles = {
@@ -218,15 +225,18 @@ const styles = {
     height: "100vh",
     overflow: "auto",
   },
+  
   toolBarStyled: {
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-start",
     px: [1],
   },
+
   drawerStyled: {
     display: "flex",
   },
+  
   hideDrawer: {
     display: "flex",
     "@media (max-width: 600px)": {

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+// Import necessary modules from react-router-dom for navigation
 import { useNavigate } from "react-router-dom";
 import {
   Grid,
@@ -8,28 +9,33 @@ import {
   CircularProgress,
   Backdrop,
 } from "@mui/material";
+// Import icons from Material UI
 import { AccountCircle, School, Group } from "@mui/icons-material";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/userRelated/userHandle";
 import Popup from "../components/Popup";
 
+// Define the ChooseUser component
 const ChooseUser = ({ visitor }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const password = "zxc";
 
+  // Select data from the Redux store
   const { status, currentUser, currentRole } = useSelector(
     (state) => state.user
   );
 
+  // State variables for loader, popup visibility, and message
   const [loader, setLoader] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState("");
 
+  // Function to handle navigation based on user type
   const navigateHandler = (user) => {
     if (user === "Admin") {
-      if (visitor === "guest") {
+      if (visitor === "guest") { // Check if the user is a guest
         const email = "yogendra@12";
         const fields = { email, password };
         setLoader(true);
@@ -38,7 +44,7 @@ const ChooseUser = ({ visitor }) => {
         navigate("/Adminlogin");
       }
     } else if (user === "Student") {
-      if (visitor === "guest") {
+      if (visitor === "guest") { // Check if the user is a guest
         const rollNum = "1";
         const studentName = "Dipesh Awasthi";
         const fields = { rollNum, studentName, password };
@@ -47,7 +53,7 @@ const ChooseUser = ({ visitor }) => {
       } else {
         navigate("/Studentlogin");
       }
-    } else if (user === "Teacher") {
+    } else if (user === "Teacher") { // Check if the user is a guest
       if (visitor === "guest") {
         const email = "tony@12";
         const fields = { email, password };
@@ -59,7 +65,7 @@ const ChooseUser = ({ visitor }) => {
     }
   };
 
-  useEffect(() => {
+  useEffect(() => { // Check the status from the Redux store and update the UI accordingly
     if (status === "success" || currentUser !== null) {
       if (currentRole === "Admin") {
         navigate("/Admin/dashboard");
@@ -77,11 +83,13 @@ const ChooseUser = ({ visitor }) => {
 
   return (
     <StyledContainer>
+      {/* Main container */}
       <Container>
         <StyledGrid container spacing={2} justifyContent="center">
           <Grid item xs={12} sm={6} md={4}>
             <div onClick={() => navigateHandler("Admin")}>
               <StyledPaper elevation={3}>
+                {/* Admin section */}
                 <Box mb={2}>
                   <AccountCircle fontSize="large" />
                 </Box>
@@ -93,6 +101,7 @@ const ChooseUser = ({ visitor }) => {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <StyledPaper elevation={3}>
+              {/* Student section */}
               <div onClick={() => navigateHandler("Student")}>
                 <Box mb={2}>
                   <School fontSize="large" />
@@ -105,6 +114,7 @@ const ChooseUser = ({ visitor }) => {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <StyledPaper elevation={3}>
+              {/* Teacher section */}
               <div onClick={() => navigateHandler("Teacher")}>
                 <Box mb={2}>
                   <Group fontSize="large" />
@@ -117,6 +127,7 @@ const ChooseUser = ({ visitor }) => {
           </Grid>
         </StyledGrid>
       </Container>
+      {/* Backdrop for loader */}
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={loader}
@@ -124,6 +135,7 @@ const ChooseUser = ({ visitor }) => {
         <CircularProgress color="inherit" />
         Please Wait
       </Backdrop>
+      {/* Popup component to display messages */}
       <Popup
         message={message}
         setShowPopup={setShowPopup}
@@ -135,6 +147,7 @@ const ChooseUser = ({ visitor }) => {
 
 export default ChooseUser;
 
+// Styled components for styling
 const StyledContainer = styled.div`
   background: linear-gradient(to bottom, #4b1d70, #19118b);
   min-height: 100vh; /* Change to min-height for responsiveness */

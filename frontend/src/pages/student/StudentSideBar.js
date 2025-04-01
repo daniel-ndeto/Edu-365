@@ -17,13 +17,17 @@ import ClassOutlinedIcon from "@mui/icons-material/ClassOutlined";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 
 const StudentSideBar = () => {
+  // Get the current location from react-router-dom
   const location = useLocation();
   return (
     <>
       <React.Fragment>
+        {/* Home button */}
         <ListItemButton component={Link} to="/">
+          {/* Tooltip for the Home button */}
           <Tooltip title={"Home"}>
             <ListItemIcon>
+              {/* Home icon */}
               <HomeIcon
                 color={
                   location.pathname === ("/" || "/Student/dashboard")
@@ -32,10 +36,13 @@ const StudentSideBar = () => {
                 }
               />
             </ListItemIcon>
-          </Tooltip>
+          </Tooltip> 
           <ListItemText primary="Home" />
         </ListItemButton>
+        {/* Subjects button */}
         <ListItemButton component={Link} to="/Student/subjects">
+          {/* Tooltip for the Subjects button */}
+
           <Tooltip title={"Subject Marks"}>
             <ListItemIcon>
               <AssignmentIcon
@@ -47,8 +54,10 @@ const StudentSideBar = () => {
               />
             </ListItemIcon>
           </Tooltip>
-          <ListItemText primary="Subjects" />
+          <ListItemText primary="Subjects" /> 
         </ListItemButton>
+        {/* Attendance button */}
+
         <ListItemButton component={Link} to="/Student/attendance">
           <Tooltip title={"Attendance"}>
             <ListItemIcon>
@@ -63,6 +72,8 @@ const StudentSideBar = () => {
           </Tooltip>
           <ListItemText primary="Attendance" />
         </ListItemButton>
+        {/* Complain button */}
+
         <ListItemButton component={Link} to="/Student/complain">
           <Tooltip title={"Register Complain"}>
             <ListItemIcon>
@@ -78,12 +89,16 @@ const StudentSideBar = () => {
           <ListItemText primary="Complain" />
         </ListItemButton>
       </React.Fragment>
+      {/* Divider */}
       <Divider sx={{ my: 1 }} />
       <React.Fragment>
+        {/* User section header */}
         <ListSubheader component="div" inset>
           User
         </ListSubheader>
+        {/* Profile button */}
         <ListItemButton component={Link} to="/Student/profile">
+          {/* Tooltip for the Profile button */}
           <Tooltip title={"Student's profile"}>
             <ListItemIcon>
               <AccountCircleOutlinedIcon
@@ -97,6 +112,8 @@ const StudentSideBar = () => {
           </Tooltip>
           <ListItemText primary="Profile" />
         </ListItemButton>
+        {/* Logout button */}
+
         <ListItemButton component={Link} to="/logout">
           <Tooltip title={"Logout"}>
             <ListItemIcon>

@@ -20,12 +20,14 @@ import ReportIcon from "@mui/icons-material/Report";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 
 const SideBar = () => {
+  // Get the current location from react-router-dom
   const location = useLocation();
   return (
     <>
       <React.Fragment>
+        {/* Home button */}
         <ListItemButton component={Link} to="/">
-          <Tooltip title={"Home"}>
+          <Tooltip title={"Home"}> {/* Tooltip for the Home button */}
             <ListItemIcon>
               <HomeIcon
                 color={
@@ -35,8 +37,9 @@ const SideBar = () => {
                 }
               />
             </ListItemIcon>
-          </Tooltip>
-          <ListItemText primary="Home" />
+          </Tooltip> {/* Display the tooltip */}
+          <ListItemText primary="Home" /> {/* Text for the Home button */}
+        {/* Classes button */}
         </ListItemButton>
         <ListItemButton component={Link} to="/Admin/classes">
           <Tooltip title={"Classes"}>
@@ -49,8 +52,9 @@ const SideBar = () => {
                 }
               />
             </ListItemIcon>
-          </Tooltip>
-          <ListItemText primary="Classes" />
+          </Tooltip> {/* Display the tooltip */}
+          <ListItemText primary="Classes" /> {/* Text for the Classes button */}
+        {/* Subjects button */}
         </ListItemButton>
         <ListItemButton component={Link} to="/Admin/subjects">
           <Tooltip title={"Subjects"}>
@@ -63,8 +67,9 @@ const SideBar = () => {
                 }
               />
             </ListItemIcon>
-          </Tooltip>
-          <ListItemText primary="Subjects" />
+          </Tooltip> {/* Display the tooltip */}
+          <ListItemText primary="Subjects" /> {/* Text for the Subjects button */}
+        {/* Teachers button */}
         </ListItemButton>
         <ListItemButton component={Link} to="/Admin/teachers">
           <Tooltip title={"Teachers"}>
@@ -77,8 +82,9 @@ const SideBar = () => {
                 }
               />
             </ListItemIcon>
-          </Tooltip>
-          <ListItemText primary="Teachers" />
+          </Tooltip> {/* Display the tooltip */}
+          <ListItemText primary="Teachers" /> {/* Text for the Teachers button */}
+        {/* Students button */}
         </ListItemButton>
         <ListItemButton component={Link} to="/Admin/students">
           <Tooltip title={"Students"}>
@@ -91,8 +97,9 @@ const SideBar = () => {
                 }
               />
             </ListItemIcon>
-          </Tooltip>
-          <ListItemText primary="Students" />
+          </Tooltip> {/* Display the tooltip */}
+          <ListItemText primary="Students" /> {/* Text for the Students button */}
+        {/* Notices button */}
         </ListItemButton>
         <ListItemButton component={Link} to="/Admin/notices">
           <Tooltip title={"Notice"}>
@@ -105,8 +112,9 @@ const SideBar = () => {
                 }
               />
             </ListItemIcon>
-          </Tooltip>
-          <ListItemText primary="Notices" />
+          </Tooltip> {/* Display the tooltip */}
+          <ListItemText primary="Notices" /> {/* Text for the Notices button */}
+        {/* Complains button */}
         </ListItemButton>
         <ListItemButton component={Link} to="/Admin/complains">
           <Tooltip title={"Complains"}>
@@ -119,14 +127,15 @@ const SideBar = () => {
                 }
               />
             </ListItemIcon>
-          </Tooltip>
-          <ListItemText primary="Complains" />
+          </Tooltip> {/* Display the tooltip */}
+          <ListItemText primary="Complains" /> {/* Text for the Complains button */}
         </ListItemButton>
       </React.Fragment>
       <Divider sx={{ my: 1 }} />
       <React.Fragment>
+        {/* User section */}
         <ListSubheader component="div" inset>
-          User
+          User {/* User section header */}
         </ListSubheader>
         <ListItemButton component={Link} to="/Admin/profile">
           <Tooltip title={"Profile"}>
@@ -139,8 +148,9 @@ const SideBar = () => {
                 }
               />
             </ListItemIcon>
-          </Tooltip>
-          <ListItemText primary="Profile" />
+          </Tooltip> {/* Display the tooltip */}
+          <ListItemText primary="Profile" /> {/* Text for the Profile button */}
+        {/* Logout button */}
         </ListItemButton>
         <ListItemButton component={Link} to="/logout">
           <Tooltip title={"Logout"}>
@@ -153,8 +163,8 @@ const SideBar = () => {
                 }
               />
             </ListItemIcon>
-          </Tooltip>
-          <ListItemText primary="Logout" />
+          </Tooltip> {/* Display the tooltip */}
+          <ListItemText primary="Logout" /> {/* Text for the Logout button */}
         </ListItemButton>
       </React.Fragment>
     </>

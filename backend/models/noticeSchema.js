@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 
+// Define the schema for the notice model
 const noticeSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -17,6 +18,7 @@ const noticeSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'admin'
     },
+    // Add timestamps for when the notice was created and updated
 }, { timestamps: true });
 
 module.exports = mongoose.model("notice", noticeSchema)

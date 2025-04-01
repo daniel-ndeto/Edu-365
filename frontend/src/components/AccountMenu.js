@@ -1,3 +1,4 @@
+// Import necessary modules and components from Material-UI and React
 import React, { useState } from "react";
 import {
   Box,
@@ -10,21 +11,28 @@ import {
   Tooltip,
 } from "@mui/material";
 
+// Import icons from Material-UI
 // eslint-disable-next-line no-unused-vars
 import { Settings, Logout } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+// Define the AccountMenu component
 const AccountMenu = () => {
+  // State to manage the anchor element for the menu
   const [anchorEl, setAnchorEl] = useState(null);
 
+  // Determine if the menu is open
   const open = Boolean(anchorEl);
 
+  // Access current user and role from the Redux store
   const { currentRole, currentUser } = useSelector((state) => state.user);
 
+  // Handle click event to open the menu
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  // Handle close event to close the menu
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -32,6 +40,7 @@ const AccountMenu = () => {
     <>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
         <Tooltip title="Account settings">
+          {/* IconButton to trigger the menu */}
           <IconButton
             onClick={handleClick}
             size="small"
@@ -40,6 +49,7 @@ const AccountMenu = () => {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
+            {/* Avatar component to display user's initial */}
             <Avatar sx={{ width: 32, height: 32 }}>
               {String(currentUser.name).charAt(0)}
             </Avatar>
@@ -47,6 +57,7 @@ const AccountMenu = () => {
         </Tooltip>
       </Box>
       <Menu
+        // Menu component to display options
         anchorEl={anchorEl}
         id="account-menu"
         open={open}
@@ -59,11 +70,13 @@ const AccountMenu = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
+        {/* MenuItem for profile navigation */}
         <MenuItem>
           <Avatar />
           <Link to={`/${currentRole}/profile`}>Profile</Link>
         </MenuItem>
         <Divider />
+        {/* MenuItem for logout navigation */}
         <MenuItem>
           <ListItemIcon>
             <Logout fontSize="small" />
@@ -77,6 +90,7 @@ const AccountMenu = () => {
 
 export default AccountMenu;
 
+// Styles for the menu paper
 const styles = {
   styledPaper: {
     overflow: "visible",
@@ -88,6 +102,7 @@ const styles = {
       ml: -0.5,
       mr: 1,
     },
+    
     "&:before": {
       content: '""',
       display: "block",

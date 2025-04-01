@@ -25,12 +25,14 @@ import TeacherViewStudent from "./TeacherViewStudent";
 import StudentExamMarks from "../admin/studentRelated/StudentExamMarks";
 
 const TeacherDashboard = () => {
+  // State to manage the drawer's open/close state
   const [open, setOpen] = useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
   return (
+    // Main container for the teacher dashboard
     <>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
@@ -39,6 +41,7 @@ const TeacherDashboard = () => {
           position="absolute"
           sx={{ backgroundColor: "darkblue" }}
         >
+          {/* Toolbar for the app bar */}
           <Toolbar sx={{ pr: "24px" }}>
             <IconButton
               edge="start"
@@ -52,6 +55,7 @@ const TeacherDashboard = () => {
             >
               <MenuIcon />
             </IconButton>
+            {/* Title of the dashboard */}
             <Typography
               component="h1"
               variant="h6"
@@ -61,10 +65,12 @@ const TeacherDashboard = () => {
             >
               Teacher Dashboard
             </Typography>
+            {/* Account menu component */}
             <AccountMenu />
           </Toolbar>
         </AppBar>
         <Drawer
+          // Drawer component for the sidebar
           variant="permanent"
           open={open}
           sx={open ? styles.drawerStyled : styles.hideDrawer}
@@ -75,10 +81,12 @@ const TeacherDashboard = () => {
             </IconButton>
           </Toolbar>
           <Divider />
+          {/* Sidebar component */}
           <List component="nav">
             <TeacherSideBar />
           </List>
         </Drawer>
+        {/* Main content area */}
         <Box component="main" sx={styles.boxStyled}>
           <Toolbar />
           <Routes>
@@ -115,6 +123,7 @@ const TeacherDashboard = () => {
 export default TeacherDashboard;
 
 const styles = {
+  // Styles for the main content area
   boxStyled: {
     backgroundColor: (theme) =>
       theme.palette.mode === "light"
@@ -124,15 +133,18 @@ const styles = {
     height: "100vh",
     overflow: "auto",
   },
+  // Styles for the toolbar
   toolBarStyled: {
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
     px: [1],
   },
+  // Styles for the drawer when it's open
   drawerStyled: {
     display: "flex",
   },
+  // Styles for the drawer when it's hidden
   hideDrawer: {
     display: "flex",
     "@media (max-width: 600px)": {

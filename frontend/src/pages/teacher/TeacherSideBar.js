@@ -16,12 +16,14 @@ import AnnouncementOutlinedIcon from "@mui/icons-material/AnnouncementOutlined";
 import ClassOutlinedIcon from "@mui/icons-material/ClassOutlined";
 import { useSelector } from "react-redux";
 
+// Define the TeacherSideBar component
 const TeacherSideBar = () => {
   const { currentUser } = useSelector((state) => state.user);
   const sclassName = currentUser.teachSclass;
 
   const location = useLocation();
   return (
+    // Main container for the sidebar
     <>
       <React.Fragment>
         <ListItemButton component={Link} to="/">
@@ -38,6 +40,7 @@ const TeacherSideBar = () => {
           </Tooltip>
           <ListItemText primary="Home" />
         </ListItemButton>
+        {/* Class button */}
         <ListItemButton component={Link} to="/Teacher/class">
           <Tooltip title={"Classes"}>
             <ListItemIcon>
@@ -52,6 +55,7 @@ const TeacherSideBar = () => {
           </Tooltip>
           <ListItemText primary={`Class ${sclassName.sclassName}`} />
         </ListItemButton>
+        {/* Complain button */}
         <ListItemButton component={Link} to="/Teacher/complain">
           <Tooltip title={"Complain"}>
             <ListItemIcon>
@@ -67,9 +71,11 @@ const TeacherSideBar = () => {
           <ListItemText primary="Complain" />
         </ListItemButton>
       </React.Fragment>
+      {/* Divider */}
       <Divider sx={{ my: 1 }} />
       <React.Fragment>
         <ListSubheader component="div" inset>
+          {/* User section header */}
           User
         </ListSubheader>
         <ListItemButton component={Link} to="/Teacher/profile">
@@ -86,6 +92,7 @@ const TeacherSideBar = () => {
           </Tooltip>
           <ListItemText primary="Profile" />
         </ListItemButton>
+        {/* Logout button */}
         <ListItemButton component={Link} to="/logout">
           <Tooltip title={"Logout"}>
             <ListItemIcon>
@@ -104,5 +111,5 @@ const TeacherSideBar = () => {
     </>
   );
 };
-
+// Export the TeacherSideBar component
 export default TeacherSideBar;

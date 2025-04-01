@@ -22,12 +22,15 @@ import { DatePicker } from "@mui/lab";
 import EventIcon from "@mui/icons-material/Event";
 
 const StudentForm = () => {
+  // State to manage the form data
   const [formData, setFormData] = useState({
-    dateOfBirth:"", // null
+    dateOfBirth: "", // null
     gender: "",
     email: "",
     phone: "",
     address: "",
+    // emergency contact
+
     emergencyContact: "",
   });
 
@@ -35,6 +38,7 @@ const StudentForm = () => {
   const [emergencyContactError, setEmergencyContactError] = useState(false);
 
   const handleInputChange = (event) => {
+    // Handle input change
     const { name, value } = event.target;
     setFormData({
       ...formData,
@@ -43,6 +47,7 @@ const StudentForm = () => {
   };
 
   const handleDateOfBirthChange = (date) => {
+    // Handle date of birth change
     setFormData({
       ...formData,
       dateOfBirth: date,
@@ -50,19 +55,23 @@ const StudentForm = () => {
   };
 
   const handleSubmit = (event) => {
+    // Handle form submission
     event.preventDefault();
 
+    // Validate phone number
     if (formData.phone.length !== 10) {
       setPhoneError(true);
     } else {
       setPhoneError(false);
     }
+    // Validate emergency contact
     if (formData.emergencyContact.length !== 10) {
       setEmergencyContactError(true);
     } else {
       setEmergencyContactError(false);
     }
 
+    // If no errors, log the form data and redirect
     if (!phoneError && !emergencyContactError) {
       console.log(formData);
       window.location.href = "/students/profile";
@@ -71,12 +80,15 @@ const StudentForm = () => {
 
   return (
     <>
+      {/* Main container */}
       <Container maxWidth="md">
         <Card>
           <CardContent>
+            {/* Form */}
             <form onSubmit={handleSubmit}>
               <Grid container spacing={2} justifyContent="center">
                 <Typography variant="h6" gutterBottom>
+                  {/* Form title */}
                   Personal Information
                 </Typography>
                 <Grid item xs={10}>
@@ -106,6 +118,7 @@ const StudentForm = () => {
                     />
                   </LocalizationProvider>
                 </Grid>
+                {/* Gender select */}
                 <Grid item xs={10}>
                   <FormControl fullWidth>
                     <InputLabel id="gender-label">Gender</InputLabel>
@@ -125,6 +138,7 @@ const StudentForm = () => {
                     </Select>
                   </FormControl>
                 </Grid>
+                {/* Email input */}
                 <Grid item xs={10}>
                   <TextField
                     fullWidth
@@ -134,6 +148,7 @@ const StudentForm = () => {
                     onChange={handleInputChange}
                   />
                 </Grid>
+                {/* Phone input */}
                 <Grid item xs={10}>
                   <TextField
                     fullWidth
@@ -145,6 +160,7 @@ const StudentForm = () => {
                     helperText={phoneError && "Phone number must be 10 digits"}
                   />
                 </Grid>
+                {/* Address input */}
                 <Grid item xs={10}>
                   <TextField
                     fullWidth
@@ -154,6 +170,7 @@ const StudentForm = () => {
                     onChange={handleInputChange}
                   />
                 </Grid>
+                {/* Emergency contact input */}
                 <Grid item xs={10}>
                   <TextField
                     fullWidth
@@ -168,6 +185,7 @@ const StudentForm = () => {
                     }
                   />
                 </Grid>
+                {/* Submit button */}
                 <Grid item xs={10}>
                   <Button variant="contained" color="primary" type="submit">
                     Save Details

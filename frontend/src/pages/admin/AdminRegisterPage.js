@@ -1,3 +1,4 @@
+// Import necessary modules and components from React and Material UI
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -23,30 +24,40 @@ import { registerUser } from "../../redux/userRelated/userHandle";
 import styled from "styled-components";
 import Popup from "../../components/Popup";
 
+// Create a default theme for Material UI components
 const defaultTheme = createTheme();
 
+// Define the AdminRegisterPage component
 const AdminRegisterPage = () => {
+  // Initialize dispatch and navigate
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Get data from Redux store
   const { status, currentUser, response, error, currentRole } = useSelector(
     (state) => state.user
   );
 
+  // State variables for toggle, loader, and popup
   const [toggle, setToggle] = useState(false);
   const [loader, setLoader] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState("");
 
+  // State variables for form field errors
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [adminNameError, setAdminNameError] = useState(false);
   const [schoolNameError, setSchoolNameError] = useState(false);
+
+  // Define the role
   const role = "Admin";
 
+  // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    // Get form values
     const name = event.target.adminName.value;
     const schoolName = event.target.schoolName.value;
     const email = event.target.email.value;
@@ -60,11 +71,14 @@ const AdminRegisterPage = () => {
       return;
     }
 
+    // Define the fields to be submitted
     const fields = { name, email, password, role, schoolName };
     setLoader(true);
+    // Dispatch action to register a new user
     dispatch(registerUser(fields, role));
   };
 
+  // Handle input change
   const handleInputChange = (event) => {
     const { name } = event.target;
     if (name === "email") setEmailError(false);
@@ -73,6 +87,7 @@ const AdminRegisterPage = () => {
     if (name === "schoolName") setSchoolNameError(false);
   };
 
+  // Handle different statuses after submitting the form
   useEffect(() => {
     if (
       status === "success" ||
@@ -88,12 +103,15 @@ const AdminRegisterPage = () => {
     }
   }, [status, currentUser, currentRole, navigate, error, response]);
 
+  // Render the component
   return (
     <ThemeProvider theme={defaultTheme}>
+      {/* Main container for the registration page */}
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
+            // Box for the registration form
             sx={{
               my: 8,
               mx: 4,
@@ -102,12 +120,15 @@ const AdminRegisterPage = () => {
               alignItems: "center",
             }}
           >
+            {/* Title of the form */}
             <Typography variant="h4" sx={{ mb: 2, color: "#2c2143" }}>
               Admin Register
             </Typography>
+            {/* Description of the form */}
             <Typography variant="h7">
               Create your own school by registering as an admin.
               <br />
+              {/* Additional description */}
               You will be able to add students and faculty and manage the
               system.
             </Typography>
@@ -117,6 +138,7 @@ const AdminRegisterPage = () => {
               onSubmit={handleSubmit}
               sx={{ mt: 2 }}
             >
+              {/* Input field for admin's name */}
               <TextField
                 margin="normal"
                 required
@@ -130,6 +152,7 @@ const AdminRegisterPage = () => {
                 helperText={adminNameError && "Name is required"}
                 onChange={handleInputChange}
               />
+              {/* Input field for school's name */}
               <TextField
                 margin="normal"
                 required
@@ -142,6 +165,7 @@ const AdminRegisterPage = () => {
                 helperText={schoolNameError && "School name is required"}
                 onChange={handleInputChange}
               />
+              {/* Input field for admin's email */}
               <TextField
                 margin="normal"
                 required
@@ -154,6 +178,7 @@ const AdminRegisterPage = () => {
                 helperText={emailError && "Email is required"}
                 onChange={handleInputChange}
               />
+              {/* Input field for admin's password */}
               <TextField
                 margin="normal"
                 required
@@ -176,6 +201,7 @@ const AdminRegisterPage = () => {
                   ),
                 }}
               />
+              {/* Checkbox for remember me */}
               <Grid
                 container
                 sx={{ display: "flex", justifyContent: "space-between" }}
@@ -185,6 +211,7 @@ const AdminRegisterPage = () => {
                   label="Remember me"
                 />
               </Grid>
+              {/* Submit button */}
               <DarkBlueButton
                 type="submit"
                 fullWidth
@@ -197,6 +224,7 @@ const AdminRegisterPage = () => {
                   "Register"
                 )}
               </DarkBlueButton>
+              {/* Link to login page */}
               <Grid container>
                 <Grid>Already have an account?</Grid>
                 <Grid item sx={{ ml: 2 }}>
@@ -206,6 +234,7 @@ const AdminRegisterPage = () => {
             </Box>
           </Box>
         </Grid>
+        {/* Background image */}
         <Grid
           item
           xs={false}
@@ -223,6 +252,7 @@ const AdminRegisterPage = () => {
           }}
         />
       </Grid>
+      {/* Popup component for displaying messages */}
       <Popup
         message={message}
         setShowPopup={setShowPopup}
@@ -234,6 +264,7 @@ const AdminRegisterPage = () => {
 
 export default AdminRegisterPage;
 
+// Styled component for the link
 const StyledLink = styled(Link)`
   margin-top: 9px;
   text-decoration: none;

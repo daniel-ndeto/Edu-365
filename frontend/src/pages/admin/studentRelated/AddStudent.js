@@ -1,3 +1,4 @@
+// Import necessary modules and components
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +10,7 @@ import { CircularProgress } from '@mui/material';
 // eslint-disable-next-line no-unused-vars
 import  nodata  from '../../../assets/nodata.png';
 
+// Define the AddStudent component
 const AddStudent = ({ situation }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -23,12 +25,14 @@ const AddStudent = ({ situation }) => {
     const [password, setPassword] = useState('');
     const [className, setClassName] = useState('');
     const [sclassName, setSclassName] = useState('');
-
+    
+    // Get the admin ID and set the role to "Student"
     const adminID = currentUser._id;
     const role = "Student";
     const attendance = [];
 
     useEffect(() => {
+        // If the situation is "Class", set the sclassName from the URL parameter
         if (situation === "Class") {
             setSclassName(params.id);
         }
@@ -38,11 +42,13 @@ const AddStudent = ({ situation }) => {
     const [message, setMessage] = useState("");
     const [loader, setLoader] = useState(false);
 
+    // Fetch all classes when the component mounts
     useEffect(() => {
         dispatch(getAllSclasses(adminID, "Sclass"));
     }, [adminID, dispatch]);
 
     const changeHandler = (event) => {
+        // Handle class selection change
         if (event.target.value === 'Select Class') {
             setClassName('Select Class');
             setSclassName('');
@@ -55,10 +61,12 @@ const AddStudent = ({ situation }) => {
         }
     };
 
+    // Define the fields to be submitted
     const fields = { name, rollNum, password, sclassName, adminID, role, attendance };
 
     const submitHandler = (event) => {
         event.preventDefault();
+        // Check if a class is selected
         if (sclassName === "") {
             setMessage("Please select a classname");
             setShowPopup(true);
@@ -70,6 +78,7 @@ const AddStudent = ({ situation }) => {
     };
 
     useEffect(() => {
+        // Handle different statuses after submitting the form
         if (status === 'added') {
             dispatch(underControl());
             navigate(-1);
@@ -88,13 +97,12 @@ const AddStudent = ({ situation }) => {
 
     return (
         <>
-        
-            
-           
+            {/* Main container for the registration form */}
                 <div className="register">
                     <form className="registerForm" onSubmit={submitHandler}>
                         <span className="registerTitle">Add Student</span>
                         <label>Name</label>
+                        {/* Input field for student's name */}
                         <input className="registerInput" type="text" placeholder="Enter student's name..."
                             value={name}
                             onChange={(event) => setName(event.target.value)}
@@ -102,6 +110,7 @@ const AddStudent = ({ situation }) => {
 
                         {
                             situation === "Student" &&
+                            // Class selection dropdown (only shown when situation is "Student")
                             <>
                                 <label>Class</label>
                                 <select
@@ -118,6 +127,7 @@ const AddStudent = ({ situation }) => {
                             </>
                         }
 
+                        {/* Input field for student's roll number */}
                         <label>Roll Number</label>
                         <input className="registerInput" type="number" placeholder="Enter student's Roll Number..."
                             value={rollNum}
@@ -125,12 +135,14 @@ const AddStudent = ({ situation }) => {
                             required />
 
                         <label>Password</label>
+                        {/* Input field for student's password */}
                         <input className="registerInput" type="password" placeholder="Enter student's password..."
                             value={password}
                             onChange={(event) => setPassword(event.target.value)}
                             autoComplete="new-password" required />
 
                         <button className="registerButton" type="submit" disabled={loader}>
+                            {/* Submit button with loading indicator */}
                             {loader ? (
                                 <CircularProgress size={24} color="inherit" />
                             ) : (
@@ -139,7 +151,7 @@ const AddStudent = ({ situation }) => {
                         </button>
                     </form>
                 </div>
-            
+            {/* Popup component for displaying messages */}
             <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
         </>
     )

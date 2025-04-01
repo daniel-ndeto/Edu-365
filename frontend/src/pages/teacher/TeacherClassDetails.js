@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+// eslint-disable-next-line no-unused-vars
+import { useEffect, useState } from "react";
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
@@ -9,10 +10,12 @@ import TableTemplate from "../../components/TableTemplate";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 
 const TeacherClassDetails = () => {
+    // Initialize navigation hook
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const { sclassStudents, loading, error, getresponse } = useSelector((state) => state.sclass);
-
+   
+    // Extract class ID and subject ID from the current user's data
     const { currentUser } = useSelector((state) => state.user);
     const classID = currentUser.teachSclass?._id
     const subjectID = currentUser.teachSubject?._id
@@ -21,17 +24,20 @@ const TeacherClassDetails = () => {
         dispatch(getClassStudents(classID));
     }, [dispatch, classID])
 
+    // Log error if it exists
     if (error) {
         console.log(error)
     }
-
+    // Define columns for the student table
     const studentColumns = [
         { id: 'name', label: 'Name', minWidth: 170 },
         { id: 'rollNum', label: 'Roll Number', minWidth: 100 },
     ]
-
+    // Map student data to table rows
     const studentRows = sclassStudents.map((student) => {
         return {
+            // Extract name, roll number, and ID from each student
+            // These are used to display the student's information in the table
             name: student.name,
             rollNum: student.rollNum,
             id: student._id,
@@ -39,6 +45,7 @@ const TeacherClassDetails = () => {
     })
 
     const StudentsButtonHaver = ({ row }) => {
+        // Define options for the split button
         const options = ['Take Attendance', 'Provide Marks'];
 
         const [open, setOpen] = React.useState(false);
@@ -47,6 +54,7 @@ const TeacherClassDetails = () => {
 
         const handleClick = () => {
             console.info(`You clicked ${options[selectedIndex]}`);
+            // Navigate based on the selected option
             if (selectedIndex === 0) {
                 handleAttendance();
             } else if (selectedIndex === 1) {
@@ -54,27 +62,29 @@ const TeacherClassDetails = () => {
             }
         };
 
+        // Function to handle navigation to the attendance page
         const handleAttendance = () => {
             navigate(`/Teacher/class/student/attendance/${row.id}/${subjectID}`)
         }
+        // Function to handle navigation to the marks page
         const handleMarks = () => {
             navigate(`/Teacher/class/student/marks/${row.id}/${subjectID}`)
         };
-
+        // Function to handle the click event of a menu item
         const handleMenuItemClick = (event, index) => {
             setSelectedIndex(index);
             setOpen(false);
         };
-
+        // Function to toggle the open/close state of the menu
         const handleToggle = () => {
             setOpen((prevOpen) => !prevOpen);
         };
-
+        // Function to handle the close event of the menu
         const handleClose = (event) => {
             if (anchorRef.current && anchorRef.current.contains(event.target)) {
                 return;
             }
-
+            // Close the menu
             setOpen(false);
         };
         return (
@@ -82,6 +92,7 @@ const TeacherClassDetails = () => {
                 <BlueButton
                     variant="contained"
                     onClick={() =>
+                        // Navigate to the student view page
                         navigate("/Teacher/class/student/" + row.id)
                     }
                 >
@@ -89,6 +100,7 @@ const TeacherClassDetails = () => {
                 </BlueButton>
                 <React.Fragment>
                     <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
+                        {/* Main button */}
                         <Button onClick={handleClick}>{options[selectedIndex]}</Button>
                         <BlackButton
                             size="small"
@@ -102,6 +114,7 @@ const TeacherClassDetails = () => {
                         </BlackButton>
                     </ButtonGroup>
                     <Popper
+                        // Popper component for the menu
                         sx={{
                             zIndex: 1,
                         }}
@@ -111,6 +124,7 @@ const TeacherClassDetails = () => {
                         transition
                         disablePortal
                     >
+                        {/* Grow transition for the menu */}
                         {({ TransitionProps, placement }) => (
                             <Grow
                                 {...TransitionProps}
@@ -119,6 +133,7 @@ const TeacherClassDetails = () => {
                                         placement === 'bottom' ? 'center top' : 'center bottom',
                                 }}
                             >
+                                {/* Menu component */}
                                 <Paper>
                                     <ClickAwayListener onClickAway={handleClose}>
                                         <MenuList id="split-button-menu" autoFocusItem>
@@ -145,13 +160,16 @@ const TeacherClassDetails = () => {
 
     return (
         <>
+            {/* Display loading message while data is being fetched */}
             {loading ? (
                 <div>Loading...</div>
             ) : (
                 <>
+                    {/* Display class details */}
                     <Typography variant="h4" align="center" gutterBottom>
                         Class Details
                     </Typography>
+                    {/* Check if there is a response from the server */}
                     {getresponse ? (
                         <>
                             <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
@@ -163,7 +181,7 @@ const TeacherClassDetails = () => {
                             <Typography variant="h5" gutterBottom>
                                 Students List:
                             </Typography>
-
+                            {/* Check if sclassStudents is an array and has data */}
                             {Array.isArray(sclassStudents) && sclassStudents.length > 0 &&
                                 <TableTemplate buttonHaver={StudentsButtonHaver} columns={studentColumns} rows={studentRows} />
                             }

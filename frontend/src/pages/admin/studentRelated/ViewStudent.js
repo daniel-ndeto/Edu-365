@@ -21,6 +21,7 @@ import TableChartIcon from '@mui/icons-material/TableChart';
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 import Popup from '../../../components/Popup';
 
+// Component to view student details, attendance, and marks
 const ViewStudent = () => {
     const [showTab, setShowTab] = useState(false);
 
@@ -32,11 +33,13 @@ const ViewStudent = () => {
     const studentID = params.id
     const address = "Student"
 
+    // Fetch student details on component mount
     useEffect(() => {
         dispatch(getUserDetails(studentID, address));
     }, [dispatch, studentID])
 
     useEffect(() => {
+        // Fetch subject list if student details and class are available
         if (userDetails && userDetails.sclassName && userDetails.sclassName._id !== undefined) {
             dispatch(getSubjectList(userDetails.sclassName._id, "ClassSubjects"));
         }
@@ -58,6 +61,7 @@ const ViewStudent = () => {
     const [showPopup, setShowPopup] = useState(false);
     const [message, setMessage] = useState("");
 
+    // Toggle the open state of a subject's details
     const handleOpen = (subId) => {
         setOpenStates((prevState) => ({
             ...prevState,
@@ -65,11 +69,13 @@ const ViewStudent = () => {
         }));
     };
 
+    // State and handler for tab changes
     const [value, setValue] = useState('1');
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    // State and handler for section changes (table/chart)
 
     const [selectedSection, setSelectedSection] = useState('table');
     const handleSectionChange = (event, newSection) => {
@@ -81,6 +87,7 @@ const ViewStudent = () => {
         : { name, rollNum, password }
 
     useEffect(() => {
+        // Update state variables when userDetails change
         if (userDetails) {
             setName(userDetails.name || '');
             setRollNum(userDetails.rollNum || '');
@@ -91,6 +98,7 @@ const ViewStudent = () => {
         }
     }, [userDetails]);
 
+    // Handle form submission to update student details
     const submitHandler = (event) => {
         event.preventDefault()
         dispatch(updateUser(fields, studentID, address))
@@ -102,6 +110,7 @@ const ViewStudent = () => {
             })
     }
 
+    // Handle student deletion
     const deleteHandler = () => {
         dispatch(deleteUser(studentID, address))
             .then(() => {
@@ -109,6 +118,7 @@ const ViewStudent = () => {
             })
     }
 
+    // Handle removal of student data (attendance/marks)
     const removeHandler = (id, deladdress) => {
         dispatch(removeStuff(id, deladdress))
             .then(() => {
@@ -116,6 +126,7 @@ const ViewStudent = () => {
             })
     }
 
+    // Handle removal of a specific subject's attendance
     const removeSubAttendance = (subId) => {
         dispatch(updateStudentFields(studentID, { subId }, "RemoveStudentSubAtten"))
             .then(() => {
@@ -123,11 +134,13 @@ const ViewStudent = () => {
             })
     }
 
+    // Calculate overall attendance percentages
     const overallAttendancePercentage = calculateOverallAttendancePercentage(subjectAttendance);
     const overallAbsentPercentage = 100 - overallAttendancePercentage;
 
     const chartData = [
         { name: 'Present', value: overallAttendancePercentage },
+        // Data for the pie chart
         { name: 'Absent', value: overallAbsentPercentage }
     ];
 
@@ -141,6 +154,7 @@ const ViewStudent = () => {
         };
     });
 
+    // Component to display and manage student attendance
     const StudentAttendanceSection = () => {
         const renderTableSection = () => {
             return (
@@ -156,6 +170,7 @@ const ViewStudent = () => {
                                 <StyledTableCell align="center">Actions</StyledTableCell>
                             </StyledTableRow>
                         </TableHead>
+                        {/* Map through each subject's attendance */}
                         {Object.entries(groupAttendanceBySubject(subjectAttendance)).map(([subName, { present, allData, subId, sessions }], index) => {
                             const subjectAttendancePercentage = calculateSubjectAttendancePercentage(present, sessions);
                             return (
@@ -169,6 +184,7 @@ const ViewStudent = () => {
                                             <Button variant="contained"
                                                 onClick={() => handleOpen(subId)}>
                                                 {openStates[subId] ? <KeyboardArrowUp /> : <KeyboardArrowDown />}Details
+                                                {/* Button to toggle subject details */}
                                             </Button>
                                             <IconButton onClick={() => removeSubAttendance(subId)}>
                                                 <DeleteIcon color="error" />
@@ -180,6 +196,7 @@ const ViewStudent = () => {
                                         </StyledTableCell>
                                     </StyledTableRow>
                                     <StyledTableRow>
+                                        {/* Collapsible section for detailed attendance */}
                                         <StyledTableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
                                             <Collapse in={openStates[subId]} timeout="auto" unmountOnExit>
                                                 <Box sx={{ margin: 1 }}>
@@ -220,11 +237,13 @@ const ViewStudent = () => {
                     <div>
                         Overall Attendance Percentage: {overallAttendancePercentage.toFixed(2)}%
                     </div>
+                    {/* Buttons for deleting all attendance or adding new attendance */}
                     <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={() => removeHandler(studentID, "RemoveStudentAtten")}>Delete All</Button>
                     <Button variant="contained" sx={styles.styledButton} onClick={() => navigate("/Admin/students/student/attendance/" + studentID)}>
                         Add Attendance
                     </Button>
                 </>
+                // Render the chart section
             )
         }
         const renderChartSection = () => {
@@ -236,6 +255,7 @@ const ViewStudent = () => {
         }
         return (
             <>
+                {/* Conditional rendering based on whether there is attendance data */}
                 {subjectAttendance && Array.isArray(subjectAttendance) && subjectAttendance.length > 0
                     ?
                     <>
@@ -266,6 +286,7 @@ const ViewStudent = () => {
         )
     }
 
+    // Component to display and manage student marks
     const StudentMarksSection = () => {
         const renderTableSection = () => {
             return (
@@ -278,6 +299,7 @@ const ViewStudent = () => {
                                 <StyledTableCell>Marks</StyledTableCell>
                             </StyledTableRow>
                         </TableHead>
+                        {/* Map through each subject's marks */}
                         <TableBody>
                             {subjectMarks.map((result, index) => {
                                 if (!result.subName || !result.marksObtained) {
@@ -292,6 +314,7 @@ const ViewStudent = () => {
                             })}
                         </TableBody>
                     </Table>
+                    {/* Button to add new marks */}
                     <Button variant="contained" sx={styles.styledButton} onClick={() => navigate("/Admin/students/student/marks/" + studentID)}>
                         Add Marks
                     </Button>
@@ -337,6 +360,7 @@ const ViewStudent = () => {
         )
     }
 
+    // Component to display student details
     const StudentDetailsSection = () => {
         return (
             <Paper elevation={3} sx={{ padding: '20px', backgroundColor: '#fff', marginTop: '20px' }}>
@@ -353,6 +377,7 @@ const ViewStudent = () => {
                             <CustomPieChart data={chartData} />
                         )
                     }
+                    {/* Button to delete the student */}
                     <Button variant="contained" sx={styles.styledButton} onClick={deleteHandler}>
                         Delete
                     </Button>
@@ -362,6 +387,7 @@ const ViewStudent = () => {
         )
     }
 
+    // Main return statement for the component
     return (
         <>
             {loading
@@ -373,6 +399,7 @@ const ViewStudent = () => {
                 <>
                     <Box sx={{ width: '100%', typography: 'body1', }} >
                         <TabContext value={value}>
+                            {/* Tab navigation */}
                             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                                 <TabList onChange={handleChange} sx={{ position: 'fixed', width: '100%', bgcolor: 'background.paper', zIndex: 1 }}>
                                     <Tab label="Details" value="1" />
@@ -403,6 +430,7 @@ const ViewStudent = () => {
 
 export default ViewStudent
 
+// Styles for buttons
 const styles = {
     attendanceButton: {
         marginLeft: "20px",

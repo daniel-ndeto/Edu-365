@@ -14,6 +14,7 @@ import {
 } from "./userSlice";
 
 //const REACT_APP_BASE_URL = "http://localhost:5000";
+//const REACT_APP_BASE_URL ="https://edu-365-back.vercel.app/"
 
 export const loginUser = (fields, role) => async (dispatch) => {
   dispatch(authRequest());

@@ -3,6 +3,7 @@ const Student = require('../models/studentSchema.js');
 const Subject = require('../models/subjectSchema.js');
 const Teacher = require('../models/teacherSchema.js');
 
+// Create a new class
 const sclassCreate = async (req, res) => {
     try {
         const sclass = new Sclass({
@@ -27,6 +28,7 @@ const sclassCreate = async (req, res) => {
     }
 };
 
+// Get all classes of a school
 const sclassList = async (req, res) => {
     try {
         let sclasses = await Sclass.find({ school: req.params.id })
@@ -40,6 +42,7 @@ const sclassList = async (req, res) => {
     }
 };
 
+// Get a specific class detail
 const getSclassDetail = async (req, res) => {
     try {
         let sclass = await Sclass.findById(req.params.id);
@@ -55,6 +58,7 @@ const getSclassDetail = async (req, res) => {
     }
 }
 
+// Get all students of a specific class
 const getSclassStudents = async (req, res) => {
     try {
         let students = await Student.find({ sclassName: req.params.id })
@@ -71,6 +75,7 @@ const getSclassStudents = async (req, res) => {
     }
 }
 
+// Delete a specific class
 const deleteSclass = async (req, res) => {
     try {
         const deletedClass = await Sclass.findByIdAndDelete(req.params.id);
@@ -86,6 +91,7 @@ const deleteSclass = async (req, res) => {
     }
 }
 
+// Delete all classes of a specific school
 const deleteSclasses = async (req, res) => {
     try {
         const deletedClasses = await Sclass.deleteMany({ school: req.params.id });
