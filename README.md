@@ -9,7 +9,10 @@ Utilize continuous attendance tracking, performance assessments, and timely feed
 Access detailed records, review marks, and foster open communication to empower every learner.
 </h3>
 
-<br> 
+<br>
+LIVE LINK: [https://school-management-system-hazel-eta.vercel.app]
+
+BACKEND: https://edu-365.vercel.app
 
 
 <br>
