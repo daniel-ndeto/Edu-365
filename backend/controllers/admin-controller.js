@@ -114,46 +114,6 @@ const getAdminDetail = async (req, res) => {
   }
 };
 
-/*
-  ========================================
-  OPTIONAL: Additional Admin Functions
-  ========================================
-
-  The following functions are provided for additional functionality (e.g., deleting or updating an admin).
-  They are currently commented out. Uncomment them if needed, and update module.exports accordingly.
-*/
-
-/**
- * Function: deleteAdmin
- * ---------------------
- * Deletes an admin based on the provided ID and removes all related records from associated collections.
- */
-// const deleteAdmin = async (req, res) => {
-//   try {
-//     // Delete the admin document by ID
-//     const result = await Admin.findByIdAndDelete(req.params.id);
-
-//     // Delete associated records in other collections (e.g., classes, students, teachers, etc.)
-//     await Sclass.deleteMany({ school: req.params.id });
-//     await Student.deleteMany({ school: req.params.id });
-//     await Teacher.deleteMany({ school: req.params.id });
-//     await Subject.deleteMany({ school: req.params.id });
-//     await Notice.deleteMany({ school: req.params.id });
-//     await Complain.deleteMany({ school: req.params.id });
-
-//     res.send(result);
-//   } catch (error) {
-//     res.status(500).json(error);
-//   }
-// };
-
-
-// Function: updateAdmin
-// ---------------------
-// Updates an admin based on the provided ID and returns the updated admin document.
-// It also removes the password field from the response for security reasons.
-// It also updates the password field if a new password is provided in the request body.
-
 const updateAdmin = async (req, res) => {
   try {
     // If the password field is present in the request body, hash it before updating

@@ -13,8 +13,8 @@ import {
   getError,
 } from "./userSlice";
 
-// const REACT_APP_BASE_URL = "http://localhost:5000"; // Base URL for API requests (commented out)
-// const REACT_APP_BASE_URL ="https://edu-365-back.vercel.app/" // Base URL for API requests (commented out)
+// const REACT_APP_BASE_URL = "http://localhost:5000"; 
+
 
 export const loginUser = (fields, role) => async (dispatch) => { // Async action to log in a user
   dispatch(authRequest());

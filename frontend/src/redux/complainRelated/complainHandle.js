@@ -3,7 +3,6 @@ import { getRequest, getSuccess, getFailed, getError } from "./complainSlice";
 
 //const REACT_APP_BASE_URL="http://localhost:5000"
 
-//const REACT_APP_BASE_URL = "https://edu-365-back.vercel.app/";
 
 // Async action to fetch all complains
 export const getAllComplains = (id, address) => async (dispatch) => {

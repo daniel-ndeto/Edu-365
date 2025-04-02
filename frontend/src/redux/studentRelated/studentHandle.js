@@ -7,7 +7,7 @@ import {
   stuffDone,
 } from "./studentSlice";
 
-// const REACT_APP_BASE_URL = "https://edu-365-back.vercel.app/"; // Base URL for API requests (commented out)
+//const REACT_APP_BASE_URL="http://localhost:5000"
 
 // Async action to fetch all students
 export const getAllStudents = (id) => async (dispatch) => {

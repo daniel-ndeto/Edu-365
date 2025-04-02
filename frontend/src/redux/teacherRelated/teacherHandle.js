@@ -8,6 +8,8 @@ import {
   doneSuccess,
 } from "./teacherSlice";
 
+//const REACT_APP_BASE_URL="http://localhost:5000"
+
 // Async action to fetch all teachers
 export const getAllTeachers = (id) => async (dispatch) => {
   dispatch(getRequest()); // Dispatch getRequest to indicate the start of the request

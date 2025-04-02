@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getRequest, getSuccess, getFailed, getError } from "./noticeSlice";
 
-//const REACT_APP_BASE_URL = "https://edu-365-back.vercel.app/";
+//const REACT_APP_BASE_URL="http://localhost:5000"
 
 // Async action to fetch all notices
 export const getAllNotices = (id, address) => async (dispatch) => {
