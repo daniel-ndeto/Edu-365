@@ -1,15 +1,16 @@
 {
   "version": 2,
   "name": "Edu-365",
-  "functions": {
-    "backend/index.js": {
-      "runtime": "nodejs18.x"
+  "builds": [
+    {
+      "src": "./index.js",
+      "use": "@vercel/node"
     }
-  },
+  ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "backend/index.js"
+      "dest": "/"
     }
   ]
 }
