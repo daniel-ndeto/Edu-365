@@ -36,8 +36,9 @@ mongoose
 // Use the defined routes for the application
 app.use("/", Routes);
 
-
-
+module.exports = (req, res) => {
+  res.send("Hello from your serverless function!");
+};
 
 // Start the server and listen on the specified port
 app.listen(PORT, () => {
