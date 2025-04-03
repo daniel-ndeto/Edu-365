@@ -31,8 +31,7 @@ router.post('/AdminLogin', adminLogIn);
 
 router.get("/Admin/:id", getAdminDetail)
 // router.delete("/Admin/:id", deleteAdmin)
-
- router.put("/Admin/:id", updateAdmin)
+router.put("/Admin/:id", updateAdmin)
 
 // Student
 

@@ -89,13 +89,9 @@ const adminLogIn = async (req, res) => {
   }
 };
 
-/**
- * Function: getAdminDetail
- * ------------------------
- * Retrieves details of an admin based on the provided ID.
- *  - Fetches the admin from the database using the ID from request parameters.
- *  - Removes the password before sending the response.
- */
+
+ // Function: getAdminDetail
+
 const getAdminDetail = async (req, res) => {
   try {
     // Find the admin by ID (provided in req.params)
@@ -113,6 +109,8 @@ const getAdminDetail = async (req, res) => {
     res.status(500).json(err);
   }
 };
+
+// Function: updateAdmin
 
 const updateAdmin = async (req, res) => {
   try {
