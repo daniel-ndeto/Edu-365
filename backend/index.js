@@ -27,5 +27,9 @@ mongoose
 // Routes
 app.use("/", Routes);
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the API!");
+});
+
 // Export your Express app so Vercel can handle the requests
 module.exports = app;
