@@ -10,9 +10,6 @@ const app = express();
 // Import the routes defined in the route.js file
 const Routes = require("./routes/route.js");
 
-// Define the port number for the server to listen on
-const PORT = process.env.PORT || 5000;
-
 // Load environment variables from the .env file
 dotenv.config();
 
@@ -27,20 +24,11 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  // Log a success message if the connection is successful
-  .then(console.log("Connected to MongoDB"))
-  // Log an error message if the connection fails
+  .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log("NOT CONNECTED TO NETWORK", err));
-
 
 // Use the defined routes for the application
 app.use("/", Routes);
 
-module.exports = (req, res) => {
-  res.send("Hello from your serverless function!");
-};
-
-// Start the server and listen on the specified port
-app.listen(PORT, () => {
-  console.log(`Server started at port no. ${PORT}`);
-});
+// Export the Express app so Vercel can handle the requests
+module.exports = app;
