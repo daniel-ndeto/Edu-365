@@ -1,24 +1,21 @@
-// Import necessary modules
+// index.js
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-
-// Create an instance of the Express application
-const app = express();
-
-// Import the routes defined in the route.js file
 const Routes = require("./routes/route.js");
 
-// Load environment variables from the .env file
+// Load environment variables
 dotenv.config();
 
-// Enable parsing of JSON request bodies with a limit of 10mb
+// Create Express app
+const app = express();
+
+// Middleware
 app.use(express.json({ limit: "10mb" }));
-// Enable Cross-Origin Resource Sharing (CORS)
 app.use(cors());
 
-// Connect to MongoDB using the connection string from environment variables
+// Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -27,8 +24,8 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log("NOT CONNECTED TO NETWORK", err));
 
-// Use the defined routes for the application
+// Routes
 app.use("/", Routes);
 
-// Export the Express app so Vercel can handle the requests
+// Export your Express app so Vercel can handle the requests
 module.exports = app;
