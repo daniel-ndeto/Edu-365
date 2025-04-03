@@ -115,7 +115,7 @@ const getAdminDetail = async (req, res) => {
 const updateAdmin = async (req, res) => {
   try {
     // If the password field is present in the request body, hash it before updating
-    if (res.body.password) {
+    if (req.body.password) {
       const salt = await bcrypt.genSalt(10);
 //       // NOTE: Ensure you update req.body.password, not res.body.password
       req.body.password = await bcrypt.hash(req.body.password, salt);
