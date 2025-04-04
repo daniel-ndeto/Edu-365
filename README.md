@@ -10,7 +10,7 @@ Access detailed records, review marks, and foster open communication to empower 
 </h3>
 
 <br>
-LIVE LINK: [https://school-management-system-hazel-eta.vercel.app]
+LIVE LINK: https://school-management-system-hazel-eta.vercel.app
 
 BACKEND: https://edu-365.vercel.app
 
@@ -30,7 +30,7 @@ The School Management System is a cutting-edge, web-based application built on t
 - **Facilitating Real-Time Communication:**  
   Enable seamless, role-based communication among administrators, teachers, and students.
 
-**Leveraging the MERN architecture, our system delivers:**
+**Leveraging the MERN architecture, my system delivers:**
 
 1. **Unparalleled Scalability & Performance:**  
    - Lightning-fast data retrieval using a database-driven approach  
@@ -62,7 +62,7 @@ The School Management System is a cutting-edge, web-based application built on t
   Automate and manage critical tasks like student and teacher enrollment, class creation, and scheduling—all from a single dashboard.
 
 - **Role-Based Dashboards:**  
-  Provide tailored, intuitive interfaces for administrators, teachers, and students, ensuring each group accesses the features they need.
+  Provide tailored, intuitive interfaces for administrators, teachers, and students(PARENTS), ensuring each group accesses the features they need.
 
 - **Real-Time Attendance Tracking:**  
   Enable teachers to quickly mark attendance, generate reports, and monitor trends to help identify and address absenteeism.
@@ -90,7 +90,7 @@ In essence, our School Management System empowers schools to streamline administ
 ## Features
 
 - **User Roles:**  
-  The system supports three user roles: Admin, Teacher, and Student. Each role has specific functionalities and access levels.
+  The system supports three user roles: Admin, Teacher, and Student(PARENTS). Each role has specific functionalities and access levels.
 
 - **Admin Dashboard:**  
   Administrators can add new students and teachers, create classes and subjects, manage user accounts, and oversee system settings.
@@ -169,5 +169,6 @@ If you encounter a sign-up error (e.g., a network error or endless loading):
 
 ## Deployment
 
-- **Backend:** Deployed using **Render && vercel** for server-side operations.
-- **Frontend:** Deployed using **Netlify && vercel** for client-side hosting.
+- **Backend:** Deployed using **Render** for server-side operations.
+- **Frontend:** Deployed using **Netlify** for client-side hosting.
+
