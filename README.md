@@ -14,6 +14,7 @@ LIVE LINK: https://school-management-system-hazel-eta.vercel.app
 
 BACKEND: https://edu-365.vercel.app
 
+**VIDEO PRESENTATION:** https://drive.google.com/file/d/1eh5Lf0SXdkLZWKr_I-B0aeFZnnZoh4e7/view?usp=drive_link
 # sample login for testing 
 
 Name: Sample Admin
