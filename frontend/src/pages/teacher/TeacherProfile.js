@@ -39,13 +39,21 @@ const TeacherProfile = () => {
                 <ProfileText variant="h5">Name: {currentUser.name}</ProfileText>
               </Box>
             </Grid>
-            
+
             <Grid item xs={12}>
               <Box display="flex" justifyContent="center">
-                <ProfileText variant="subtitle1">Email: {currentUser.email}</ProfileText>
-                <ProfileText variant="subtitle1">Class: {teachSclass.sclassName}</ProfileText>
-                <ProfileText variant="subtitle1">Subject: {teachSubject.subName}</ProfileText>
-                <ProfileText variant="subtitle1">School: {teachSchool.schoolName}</ProfileText>
+                <ProfileText variant="subtitle1">
+                  Email: {currentUser.email}
+                </ProfileText>
+                <ProfileText variant="subtitle1">
+                  Class: {teachSclass.sclassName}
+                </ProfileText>
+                <ProfileText variant="subtitle1">
+                  Subject: {teachSubject.subName}
+                </ProfileText>
+                <ProfileText variant="subtitle1">
+                  School: {teachSchool.schoolName}
+                </ProfileText>
               </Box>
             </Grid>
           </Grid>
