@@ -14,6 +14,31 @@ LIVE LINK: https://school-management-system-hazel-eta.vercel.app
 
 BACKEND: https://edu-365.vercel.app
 
+# sample login for testing 
+
+Name: Sample Admin
+
+Email: sampleadmin@gmail.com
+
+School: PLP SCHOOL
+
+password: 123
+
+# techer 
+
+email: teacher1@gmail.com
+
+password: 12345
+
+# student
+
+Student Roll No: 1
+
+student name: student1
+
+password: 12345
+
+**NOTICE:** MAY TAKE SOME TIME  WHEN YOU TRY TO REGISTER OR LOG IN 
 
 <br>
 
