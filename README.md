@@ -35,7 +35,7 @@ password: 12345
 
 Student Roll No: 1
 
-student name: student1
+student name: DANIEL MUSYOKI
 
 password: 12345
 
