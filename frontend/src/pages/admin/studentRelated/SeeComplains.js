@@ -33,10 +33,10 @@ const SeeComplains = () => {
 
   // Map the complains data to the table rows format
   const complainRows = complainsList?.map(complain => ({
-    user: complain.user.name,
-    complaint: complain.complaint,
-    date: new Date(complain.date).toISOString().substring(0, 10),
-    id: complain._id,
+    user: complain.user?.name || "Unknown User", // Safely access user.name or provide a fallback
+    complaint: complain.complaint || "No complaint provided", // Fallback for missing complaint
+    date: complain.date ? new Date(complain.date).toISOString().substring(0, 10) : "Unknown Date", // Fallback for missing date
+    id: complain._id || "No ID", // Fallback for missing ID
   }));
   
   // Define a component for the button in each row of the table
