@@ -16,7 +16,7 @@ app.use(express.json({ limit: "10mb" }));
 
 // Configure CORS to allow requests from your frontend's origin
 app.use(cors({
-  origin: 'https://school-management-system-hazel-eta.vercel.app', // Replace with your frontend URL
+  origin: 'https://school-management-system-hazel-eta.vercel.app', // my updated frontend URL
 }));
 
 // Connect to MongoDB
