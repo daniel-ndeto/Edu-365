@@ -13,7 +13,11 @@ const app = express();
 
 // Middleware
 app.use(express.json({ limit: "10mb" }));
-app.use(cors());
+
+// Configure CORS to allow requests from your frontend's origin
+app.use(cors({
+  origin: 'https://school-management-system-hazel-eta.vercel.app', // Replace with your frontend URL
+}));
 
 // Connect to MongoDB
 mongoose
