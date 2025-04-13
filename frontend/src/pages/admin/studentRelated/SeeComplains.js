@@ -31,21 +31,23 @@ const SeeComplains = () => {
     { id: 'date', label: 'Date', minWidth: 170 },
   ];
 
-  // Map the complains data to the table rows format
-  const complainRows = complainsList?.map(complain => {
+  // Filter out invalid complaints before mapping
+  const validComplainsList = complainsList?.filter(complain => {
     if (!complain || !complain.user || !complain.user.name) {
       console.warn("Invalid complaint data:", complain);
-      return null; // Skip invalid complaints
+      return false; // Filter out this complaint
     }
+    return true; // Keep valid complaints
+  });
 
-    return {
-      user: complain.user.name, // Safely access the user's name
-      complaint: complain.complaint || "No complaint provided", // Fallback for missing complaint
-      date: complain.date ? new Date(complain.date).toISOString().substring(0, 10) : "Unknown Date", // Fallback for missing date
-      id: complain._id || "No ID", // Fallback for missing ID
-    };
-  }).filter(row => row !== null); // Remove null rows
-  
+  // Map the valid complains data to the table rows format
+  const complainRows = validComplainsList?.map(complain => ({
+    user: complain.user.name,
+    complaint: complain.complaint || "No complaint provided",
+    date: complain.date ? new Date(complain.date).toISOString().substring(0, 10) : "Unknown Date",
+    id: complain._id || "No ID",
+  })) || []; // Ensure an empty array if validComplainsList is undefined
+
   // Define a component for the button in each row of the table
   const ComplainButtonHaver = () => <Checkbox inputProps={{ 'aria-label': 'Checkbox demo' }} />;
 
