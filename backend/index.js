@@ -19,9 +19,9 @@ app.use(express.json({ limit: "10mb" }));
 app.use(cors());
 
 // Option B: Restrict to specific domain
-// app.use(cors({
-//   origin: 'https://school-management-system-haziel.eta.vercel.app'
-// }));
+app.use(cors({
+  origin: 'https://school-management-system-haziel.eta.vercel.app'
+}));
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URL, {
