@@ -11,17 +11,22 @@ dotenv.config();
 // Create Express app
 const app = express();
 
-// Middleware
+// Middleware for parsing JSON bodies
 app.use(express.json({ limit: "10mb" }));
 
-// Configure CORS to allow requests from your frontend's origin
-// Option A: Allow all origins
-app.use(cors());
+// Option A: Allow all origins (for development)
+// app.use(cors());
 
-// Option B: Restrict to specific domain
-app.use(cors({
-  origin: 'https://school-management-system-haziel.eta.vercel.app'
-}));
+// Option B: Restrict to specific domain (for production)
+const corsOptions = {
+  origin: 'https://school-management-system-haziel.eta.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+  credentials: true
+};
+
+app.use(cors(corsOptions));
+
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URL, {
