@@ -19,7 +19,7 @@ app.use(express.json({ limit: "10mb" }));
 
 // Option B: Restrict to specific domain (for production)
 const corsOptions = {
-  origin: 'https://school-management-system-haziel.eta.vercel.app',
+  origin: 'https://school-management-system-haziel.eta.vercel.app/',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
   credentials: true
