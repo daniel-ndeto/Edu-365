@@ -1,3 +1,4 @@
+
 // index.js
 const express = require("express");
 const cors = require("cors");
@@ -5,7 +6,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const Routes = require("./routes/route.js");
 
-// Load environment variables
+// Load environment variables from .env
 dotenv.config();
 
 // Create Express app
@@ -14,17 +15,17 @@ const app = express();
 // Middleware for parsing JSON bodies
 app.use(express.json({ limit: "10mb" }));
 
-// Option A: Allow all origins (for development)
+
+//  Allow all origins (for development)
 // app.use(cors());
 
-// Option B: Restrict to specific domain (for production)
+// Configure CORS options (production restricts to your specified domain)
 const corsOptions = {
-  origin: 'https://school-management-system-haziel.eta.vercel.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+  origin: "https://school-management-system-haziel.eta.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "Accept"],
   credentials: true
 };
-
 app.use(cors(corsOptions));
 
 // Connect to MongoDB
@@ -36,12 +37,13 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log("NOT CONNECTED TO NETWORK", err));
 
-// Routes
-app.use("/", Routes);
-
+// Define a welcome route for the root path
 app.get("/", (req, res) => {
   res.send("Welcome to the API!");
 });
 
-// Export your Express app so Vercel can handle the requests
+// Mount other routes from your Routes module
+app.use("/", Routes);
+
+// Export the Express app for Vercel (or other hosting platforms)
 module.exports = app;
