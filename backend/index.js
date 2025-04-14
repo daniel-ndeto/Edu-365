@@ -15,15 +15,15 @@ const app = express();
 app.use(express.json({ limit: "10mb" }));
 
 // Option A: Allow all origins (for development)
-app.use(cors());
+// app.use(cors());
 
 // Option B: Restrict to specific domain (for production)
-// const corsOptions = {
-//   origin: 'https://school-management-system-haziel.eta.vercel.app/',
-//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//   allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
-//   credentials: true
-// };
+const corsOptions = {
+  origin: 'https://school-management-system-haziel.eta.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+  credentials: true
+};
 
 app.use(cors(corsOptions));
 
