@@ -15,10 +15,13 @@ const app = express();
 app.use(express.json({ limit: "10mb" }));
 
 // Configure CORS to allow requests from your frontend's origin
-app.use(cors({
-  origin: 'https://school-management-system-hazel-eta.vercel.app', // my updated frontend URL
-}));
+// Option A: Allow all origins
+app.use(cors());
 
+// Option B: Restrict to specific domain
+// app.use(cors({
+//   origin: 'https://school-management-system-haziel.eta.vercel.app'
+// }));
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URL, {
