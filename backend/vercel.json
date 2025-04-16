@@ -13,7 +13,7 @@
       "dest": "index.js"
     },
     {
-      "source": "/api/(.*)",
+      "src": "/api/(.*)",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
