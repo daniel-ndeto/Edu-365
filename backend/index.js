@@ -9,6 +9,8 @@ const Routes = require("./routes/route.js");
 // Load environment variables from .env
 dotenv.config();
 
+const PORT = process.env.PORT || 5000;
+
 // Create Express app
 const app = express();
 
@@ -16,17 +18,17 @@ const app = express();
 app.use(express.json({ limit: "10mb" }));
 
 
-//  Allow all origins (for development)
-// app.use(cors());
+// Allow all origins (for development)
+app.use(cors());
 
 // Configure CORS options (production restricts to your specified domain)
-const corsOptions = {
-  origin: "https://school-management-system-haziel.eta.vercel.app",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "Accept"],
-  credentials: true
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: "https://school-management-system-haziel.eta.vercel.app",
+//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//   allowedHeaders: ["Content-Type", "Authorization", "Accept"],
+//   credentials: true
+// };
+// app.use(cors(corsOptions));
 
 // Connect to MongoDB
 mongoose
